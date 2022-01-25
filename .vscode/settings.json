@@ -1,3 +1,13 @@
 {
-  "cSpell.words": ["chaincode", "Hyperledger"]
+  "cSpell.words": [
+    "baseos",
+    "ccenv",
+    "chaincode",
+    "getopts",
+    "Hyperledger",
+    "javaenv",
+    "nodeenv",
+    "NODOCKER",
+    "THIRDPARTY"
+  ]
 }
