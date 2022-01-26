@@ -23,6 +23,7 @@
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "helmet": "^5.0.2",
+    "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "uuid": "^8.3.2"
   },
