@@ -1,5 +1,17 @@
-# Binaries
-bin
+# OS X
+.DS_Store*
+Icon?
+._*
 
-# Configuration
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+*~
+
+# Hyperledger Fabric Binaries
+bin
 config
