@@ -1,11 +1,14 @@
-const jwt = require("jsonwebtoken");
+const { verifyToken } = require("../utils/token.util");
 
 const authenticate = (req, res, next) => {
   const authorization = req.headers.authorization;
   const token = authorization.split(" ")[1];
   if (!token) return res.status(401).json({ message: "Access token require" });
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, result) => {
-    if (err) return res.status(403).json({ message: "Invalid access token" });
+  verifyToken(token, "access", (err, result) => {
+    if (err)
+      return res
+        .status(403)
+        .json({ message: "Invalid access token. Access Denied" });
     req.user = result;
     next();
   });
