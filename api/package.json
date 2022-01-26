@@ -1,0 +1,30 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Block Vote API that let users (amin, voter, candidates) interact withe the blockchain and initialize a transaction.",
+  "main": "index.js",
+  "author": "Faiyaz Khan (Zarof)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/faiyazkhan024/hlf-block_vote/api"
+  },
+  "keywords": [
+    "api"
+  ],
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.17.2",
+    "cors": "^2.8.5",
+    "helmet": "^5.0.2",
+    "dotenv": "^14.3.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

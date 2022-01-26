@@ -3,6 +3,7 @@
     "baseos",
     "ccenv",
     "chaincode",
+    "ehthumbs",
     "getopts",
     "Hyperledger",
     "javaenv",
