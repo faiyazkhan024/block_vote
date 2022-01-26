@@ -2,5 +2,15 @@ POST http://localhost:5000/admin/login HTTP/1.1
 content-type: application/json
 
 {
-  "username" : "admin"
+  "username" : "admin",
+  "password" : "123"
+}
+
+###
+
+POST http://localhost:5000/token HTTP/1.1
+content-type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjQzMTkzMzA2fQ.zemeUEsvXTEErF6xThTQf3X9Ynb-jPPEcN75JayyvrE"
 }
