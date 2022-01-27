@@ -7,11 +7,9 @@ const loginController = async (req, res, next) => {
   try {
     const user = req.body;
     await adminSchema.validateAsync(req.body);
-    const result = login(user);
+    const result = await login(user);
     res.status(200).json(result);
   } catch (error) {
-    if (error.isJoi === true)
-      return next(createError.BadRequest("Invalid Username/Password"));
     next(error);
   }
 };
