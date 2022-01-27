@@ -18,7 +18,7 @@ const getToken = async (refreshToken) => {
 };
 
 const logout = async (refreshToken) => {
-  const result = await verifyToken(refreshToken);
+  await verifyToken(refreshToken, "refresh");
 };
 
-module.exports = { login, getToken };
+module.exports = { login, getToken, logout };
