@@ -1,4 +1,3 @@
-const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const createError = require("http-errors");
 
