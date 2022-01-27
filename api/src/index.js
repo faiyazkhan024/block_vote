@@ -18,6 +18,10 @@ app.use(token);
 app.use("/admin", admin);
 
 app.use(async (_, __, next) => next(createError.NotFound()));
-app.use((err, _, res, __) => res.status(err.status || 500).json(err));
+app.use((err, _, res, __) =>
+  res
+    .status(err.status || 500)
+    .json({ status: err.status, message: err.message })
+);
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));

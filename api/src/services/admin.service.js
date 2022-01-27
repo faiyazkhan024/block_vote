@@ -1,12 +1,12 @@
-const {
-  generateAccessToken,
-  generateRefreshToken,
-} = require("../utils/token.util");
+const { v4: uuid } = require("uuid");
 
-const login = (user) => {
+const { generateToken } = require("../helpers/jwt.helper");
+
+const login = async (user) => {
+  const id = uuid();
   const { username } = user;
-  const accessToken = generateAccessToken({ username });
-  const refreshToken = generateRefreshToken({ username });
+  const accessToken = await generateToken({ id, username });
+  const refreshToken = await generateToken({ id, username }, "refresh");
   return { accessToken, refreshToken };
 };
 

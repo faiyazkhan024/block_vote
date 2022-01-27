@@ -1,5 +1,7 @@
 {
   "cSpell.words": [
+    "alphanum",
+    "atleast",
     "baseos",
     "ccenv",
     "chaincode",
@@ -10,6 +12,7 @@
     "middlewares",
     "nodeenv",
     "NODOCKER",
-    "THIRDPARTY"
+    "THIRDPARTY",
+    "voteblock"
   ]
 }

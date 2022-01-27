@@ -1,12 +1,9 @@
-const {
-  generateAccessToken,
-  promisifyVerifyToken,
-} = require("../utils/token.util");
+const { generateToken, verifyToken } = require("../helpers/jwt.helper");
 
 const getToken = async (refreshToken) => {
-  const result = await promisifyVerifyToken(refreshToken, "refresh");
-  const { username } = result;
-  const accessToken = generateAccessToken({ username });
+  const result = await verifyToken(refreshToken, "refresh");
+  const { id, username } = result;
+  const accessToken = await generateToken({ id, username });
   return { accessToken };
 };
 
