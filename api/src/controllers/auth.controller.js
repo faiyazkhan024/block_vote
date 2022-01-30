@@ -29,8 +29,8 @@ const logoutController = async (req, res, next) => {
   try {
     const { refreshToken } = req.body;
     if (!refreshToken) return next(createError.Unauthorized());
-    await logout(refreshToken);
-    res.status(200).json({ message: "Logout successful" });
+    const result = await logout(refreshToken);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }

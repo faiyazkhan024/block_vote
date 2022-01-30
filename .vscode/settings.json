@@ -3,6 +3,7 @@
     "alphanum",
     "atleast",
     "baseos",
+    "blockvote",
     "ccenv",
     "chaincode",
     "ehthumbs",

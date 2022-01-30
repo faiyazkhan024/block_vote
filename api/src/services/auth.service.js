@@ -1,24 +1,21 @@
-const { v4: uuid } = require("uuid");
-
 const { generateToken, verifyToken } = require("../helpers/jwt.helper");
 
 const login = async (loginCredential) => {
-  const id = uuid();
-  const { username, password, type } = loginCredential;
-  const accessToken = await generateToken({ id, username, type });
-  const refreshToken = await generateToken({ id, username, type }, "refresh");
+  const accessToken = await generateToken(loginCredential);
+  const refreshToken = await generateToken(loginCredential, "refresh");
   return { accessToken, refreshToken };
 };
 
 const getToken = async (refreshToken) => {
   const result = await verifyToken(refreshToken, "refresh");
-  const { id, username, type } = result;
-  const accessToken = await generateToken({ id, username, type });
+  const accessToken = await generateToken(result);
   return { accessToken };
 };
 
 const logout = async (refreshToken) => {
-  await verifyToken(refreshToken, "refresh");
+  const result = await verifyToken(refreshToken, "refresh");
+  const { id } = result;
+  return { id, message: "Logged out" };
 };
 
 module.exports = { login, getToken, logout };
