@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.get("/:id");
 
-router.push("/voter", authenticate, addVoterController);
+router.post("/voter", authenticate, addVoterController);
 
 module.exports = router;
