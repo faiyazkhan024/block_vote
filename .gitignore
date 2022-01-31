@@ -1,3 +1,18 @@
+# Emacs backup files
+*~
+*#
+.#*
+
+# omit Go vendor directories
+vendor/
+.gradle
+.idea
+
+# installed platform-specific binaries
+bin
+/config
+.project
+
 # OS X
 .DS_Store*
 Icon?
@@ -12,6 +27,17 @@ Desktop.ini
 .directory
 *~
 
-# Hyperledger Fabric Binaries
-/bin/
-/config/
+# Vim file artifacts
+.*.sw*
+
+# Dependency directories
+node_modules/
+
+# Ignore Gradle build output directory
+build
+package-lock.json
+external-chaincode/
+
+# Eclipse
+.classpath
+.settings
