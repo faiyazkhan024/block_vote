@@ -2,6 +2,22 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
+  "description": "Block Vote App that let users (amin, voter, candidates) interact withe the API and initialize a transaction.",
+  "author": "Faiyaz Khan (Zarof)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/faiyazkhan024/hlf-block_vote/app"
+  },
+  "keywords": [
+    "app"
+  ],
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -18,12 +34,6 @@
     "react-scripts": "5.0.0",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

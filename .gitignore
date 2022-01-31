@@ -13,5 +13,5 @@ Desktop.ini
 *~
 
 # Hyperledger Fabric Binaries
-bin
-config
+/bin/
+/config/
