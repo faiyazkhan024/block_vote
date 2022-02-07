@@ -15,6 +15,7 @@
     "middlewares",
     "nodeenv",
     "NODOCKER",
+    "protos",
     "THIRDPARTY",
     "voteblock"
   ]

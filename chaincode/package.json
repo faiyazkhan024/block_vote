@@ -15,5 +15,9 @@
   "scripts": {
     "start": "",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "fabric-contract-api": "^2.2.2",
+    "fabric-shim": "^2.2.2"
   }
 }
