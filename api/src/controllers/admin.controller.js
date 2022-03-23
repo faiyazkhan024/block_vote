@@ -1,3 +1,5 @@
+const { addVoter } = require("../services/admin.service");
+
 const addVoterController = async (req, res, next) => {
   try {
     const voter = req.body;
