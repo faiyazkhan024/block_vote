@@ -1,7 +1,7 @@
 const createError = require("http-errors");
 
-const loginCredentialValidator = require("../validators/loginCredential.validator");
-const { login, getToken, logout } = require("../services/auth.service");
+const loginCredentialValidator = require("../validators/loginCredential");
+const { login, getToken, logout } = require("../services/user");
 
 const loginController = async (req, res, next) => {
   try {

@@ -1,4 +1,4 @@
-const { generateToken, verifyToken } = require("../helpers/jwt.helper");
+const { generateToken, verifyToken } = require("../helpers/jwt");
 
 const login = async (loginCredential) => {
   const { username, type } = loginCredential;
