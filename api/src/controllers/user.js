@@ -1,9 +1,10 @@
+const asyncHandler = require("express-async-handler");
 const createError = require("http-errors");
 
 const loginCredentialValidator = require("../validators/loginCredential");
 const { login, getToken, logout } = require("../services/user");
 
-const loginController = async (req, res, next) => {
+const loginController = asyncHandler(async (req, res, next) => {
   try {
     const loginCredential = req.body;
     await loginCredentialValidator(loginCredential);
@@ -12,9 +13,9 @@ const loginController = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
+});
 
-const tokenController = async (req, res, next) => {
+const tokenController = asyncHandler(async (req, res, next) => {
   try {
     const { refreshToken } = req.body;
     if (!refreshToken) return next(createError.Unauthorized());
@@ -23,9 +24,9 @@ const tokenController = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
+});
 
-const logoutController = async (req, res, next) => {
+const logoutController = asyncHandler(async (req, res, next) => {
   try {
     const { refreshToken } = req.body;
     if (!refreshToken) return next(createError.Unauthorized());
@@ -34,6 +35,6 @@ const logoutController = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
+});
 
 module.exports = { loginController, tokenController, logoutController };

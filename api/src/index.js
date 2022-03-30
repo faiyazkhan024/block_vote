@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const createError = require("http-errors");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 const user = require("./routes/user");
@@ -29,8 +30,16 @@ app.use(async (_, __, next) => next(createError.NotFound()));
 app.use((err, _, res, __) =>
   res
     .status(err.status || 500)
-    .json({ status: err.status, message: err.message })
+    .json({
+      message: err.message,
+      stack: process.env.NODE_ENV === "development" && err.stack,
+    })
 );
 
-// Start App
-app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
+// Connect to Database then Start Server
+mongoose
+  .connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
+  })
+  .then(app.listen(PORT, () => console.log(`Listening on port: ${PORT}`)))
+  .catch((error) => console.error(error));
