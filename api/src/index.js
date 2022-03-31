@@ -5,6 +5,8 @@ const createError = require("http-errors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+const createAdmin = require("./helpers/admin");
+
 const user = require("./routes/user");
 const admin = require("./routes/admin");
 const voter = require("./routes/voter");
@@ -28,12 +30,10 @@ app.use("/candidate", candidate);
 // Error Handling
 app.use(async (_, __, next) => next(createError.NotFound()));
 app.use((err, _, res, __) =>
-  res
-    .status(err.status || 500)
-    .json({
-      message: err.message,
-      stack: process.env.NODE_ENV === "development" && err.stack,
-    })
+  res.status(err.status || 500).json({
+    message: err.message,
+    stack: process.env.NODE_ENV === "development" && err.stack,
+  })
 );
 
 // Connect to Database then Start Server
@@ -41,5 +41,10 @@ mongoose
   .connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
   })
-  .then(app.listen(PORT, () => console.log(`Listening on port: ${PORT}`)))
+  .then(() =>
+    app.listen(PORT, () => {
+      console.log(`Listening on port: ${PORT}`);
+      createAdmin();
+    })
+  )
   .catch((error) => console.error(error));
