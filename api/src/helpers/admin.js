@@ -1,6 +1,6 @@
 const User = require("../models/user");
 
-module.exports = async () => {
+const createAdmin = async () => {
   const admin = await User.find({ username: "admin" });
   if (!admin.length) {
     await User.create({
@@ -10,3 +10,5 @@ module.exports = async () => {
     });
   }
 };
+
+module.exports = createAdmin;

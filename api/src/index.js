@@ -9,8 +9,8 @@ const connectDB = require("./config/db");
 const createAdmin = require("./helpers/admin");
 
 const user = require("./routes/user");
-const admin = require("./routes/admin");
 const voter = require("./routes/voter");
+const election = require("./routes/election");
 const candidate = require("./routes/candidate");
 
 const PORT = process.env.PORT || 5000;
@@ -24,8 +24,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Handle Routes
 app.use("/user", user);
-app.use("/admin", admin);
 app.use("/voter", voter);
+app.use("/election", election);
 app.use("/candidate", candidate);
 
 // Error Handling
