@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const createError = require("http-errors");
-require("colors");
 require("dotenv").config();
 
 const connectDB = require("./config/db");
