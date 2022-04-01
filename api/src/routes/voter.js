@@ -1,13 +1,14 @@
 const express = require("express");
 
 const authenticate = require("../middlewares/auth");
+const { postVoter, getVoter, getAllVoter } = require("../controllers/voter");
 
 const router = express.Router();
 
-router.post("/");
+router.post("/", postVoter);
 
-router.get("/");
+router.get("/", getAllVoter);
 
-router.get("/:id");
+router.get("/:id", getVoter);
 
 module.exports = router;

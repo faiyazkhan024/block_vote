@@ -1,12 +1,11 @@
-const User = require("../models/user");
+const Admin = require("../models/admin");
 
 const createAdmin = async () => {
-  const admin = await User.find({ username: "admin" });
+  const admin = await Admin.find({ username: "admin" });
   if (!admin.length) {
-    await User.create({
+    await Admin.create({
       username: "admin",
       password: "admin@1234",
-      type: "admin",
     });
   }
 };

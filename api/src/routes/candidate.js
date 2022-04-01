@@ -1,13 +1,18 @@
 const express = require("express");
 
 const authenticate = require("../middlewares/auth");
+const {
+  postCandidate,
+  getCandidate,
+  getAllCandidate,
+} = require("../controllers/candidate");
 
 const router = express.Router();
 
-router.post("/");
+router.post("/", postCandidate);
 
-router.get("/");
+router.get("/", getAllCandidate);
 
-router.get("/:id");
+router.get("/:id", getCandidate);
 
 module.exports = router;

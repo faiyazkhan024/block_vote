@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const createError = require("http-errors");
 
-const { login, getToken, logout } = require("../services/user");
+const { login, getToken, logout } = require("../services/auth");
 
 const loginController = asyncHandler(async (req, res, next) => {
   try {

@@ -7,7 +7,7 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 const createAdmin = require("./helpers/admin");
 
-const user = require("./routes/user");
+const auth = require("./routes/auth");
 const voter = require("./routes/voter");
 const election = require("./routes/election");
 const candidate = require("./routes/candidate");
@@ -22,7 +22,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 // Handle Routes
-app.use("/user", user);
+app.use("/auth", auth);
 app.use("/voter", voter);
 app.use("/election", election);
 app.use("/candidate", candidate);
