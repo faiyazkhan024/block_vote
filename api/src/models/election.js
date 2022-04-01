@@ -13,8 +13,8 @@ const electionSchema = mongoose.Schema({
     type: Date,
     require: true,
   },
-  candidates: { type: [Schema.Types.ObjectId], ref: "candidate" },
-  voters: { type: [Schema.Types.ObjectId], ref: "voter" },
+  candidates: [{ type: mongoose.Schema.Types.ObjectId, ref: "candidate" }],
+  voters: [{ type: mongoose.Schema.Types.ObjectId, ref: "voter" }],
 });
 
 module.exports = mongoose.model("election", electionSchema);
