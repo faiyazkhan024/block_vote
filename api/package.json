@@ -27,7 +27,6 @@
     "express-joi-validation": "^5.0.1",
     "helmet": "^5.0.2",
     "http-errors": "^2.0.0",
-    "joi": "^17.5.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.9",
     "uuid": "^8.3.2"

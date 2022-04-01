@@ -1,13 +1,11 @@
 const asyncHandler = require("express-async-handler");
 const createError = require("http-errors");
 
-const loginCredentialValidator = require("../validators/loginCredential");
 const { login, getToken, logout } = require("../services/user");
 
 const loginController = asyncHandler(async (req, res, next) => {
   try {
     const loginCredential = req.body;
-    await loginCredentialValidator(loginCredential);
     const result = await login(loginCredential);
     res.status(200).json(result);
   } catch (error) {
