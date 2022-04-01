@@ -2,9 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const createError = require("http-errors");
-const mongoose = require("mongoose");
+require("colors");
 require("dotenv").config();
 
+const connectDB = require("./config/db");
 const createAdmin = require("./helpers/admin");
 
 const user = require("./routes/user");
@@ -36,15 +37,10 @@ app.use((err, _, res, __) =>
   })
 );
 
-// Connect to Database then Start Server
-mongoose
-  .connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
-  })
-  .then(() =>
-    app.listen(PORT, () => {
-      console.log(`Listening on port: ${PORT}`);
-      createAdmin();
-    })
-  )
-  .catch((error) => console.error(error));
+// Connect to Database
+connectDB().then(() => {
+  createAdmin();
+
+  // Start Server
+  app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
+});

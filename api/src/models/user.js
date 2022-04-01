@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const createError = require("http-errors");
 
 const userSchema = mongoose.Schema({
   username: {
@@ -52,7 +54,7 @@ const userSchema = mongoose.Schema({
       max: 255,
     },
   },
-  profileImg: String,
+  avatar: Buffer,
   about: String,
   type: {
     type: String,
@@ -60,5 +62,30 @@ const userSchema = mongoose.Schema({
     require: true,
   },
 });
+
+// Hashing password before storing.
+userSchema.pre("save", async function (next) {
+  try {
+    if (this.isModified("password")) {
+      const hashedPass = await bcrypt.hash(this.password, 10);
+      this.password = hashedPass;
+      next();
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+// Custom method for comparing password.
+userSchema.method.comparePass = async function (password) {
+  if (!password) throw createError.BadRequest("Password is missing");
+  try {
+    const result = await bcrypt.compare(password, this.password);
+    return result;
+  } catch (error) {
+    console.error(`Error while comparing Password: ${error.message}`);
+  }
+};
 
 module.exports = mongoose.model("user", userSchema);
