@@ -5,10 +5,10 @@ const { postVoter, getVoter, getAllVoter } = require("../controllers/voter");
 
 const router = express.Router();
 
-router.post("/", postVoter);
+router.post("/", authenticate(["admin"]), postVoter);
 
-router.get("/", getAllVoter);
+router.get("/", authenticate(["admin"]), getAllVoter);
 
-router.get("/:id", getVoter);
+router.get("/:id", authenticate(["admin", "voter"]), getVoter);
 
 module.exports = router;

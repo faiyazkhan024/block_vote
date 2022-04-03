@@ -3,12 +3,16 @@
     "alphanum",
     "atleast",
     "baseos",
+    "bgcolor",
     "blockvote",
     "browserslist",
     "ccenv",
     "chaincode",
+    "chakra",
     "classpath",
     "ehthumbs",
+    "Faiyaz",
+    "formik",
     "getopts",
     "Hyperledger",
     "javaenv",
@@ -16,7 +20,9 @@
     "nodeenv",
     "NODOCKER",
     "protos",
+    "reduxjs",
     "THIRDPARTY",
-    "voteblock"
+    "voteblock",
+    "Zarof"
   ]
 }

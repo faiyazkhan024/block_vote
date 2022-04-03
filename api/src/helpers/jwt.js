@@ -7,7 +7,7 @@ const generateToken = (payload, refresh) => {
     : process.env.ACCESS_TOKEN_SECRET;
   const options = {
     expiresIn: refresh ? "30d" : "3h",
-    issuer: "voteblock.in",
+    issuer: "blockvote.in",
   };
   return new Promise((resolve, reject) => {
     jwt.sign(payload, secret, options, (err, token) => {

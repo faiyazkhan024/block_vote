@@ -9,7 +9,7 @@ const {
 
 const router = express.Router();
 
-router.post("/", postCandidate);
+router.post("/", authenticate(["admin"]), postCandidate);
 
 router.get("/", getAllCandidate);
 
