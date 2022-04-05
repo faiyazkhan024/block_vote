@@ -1,4 +1,5 @@
 const createError = require("http-errors");
+const bcrypt = require("bcrypt");
 
 const { generateToken, verifyToken } = require("../helpers/jwt");
 const Admin = require("../models/admin");
@@ -10,9 +11,9 @@ const login = async (loginCredential, type) => {
     type === "admin"
       ? await Admin.findOne({ username })
       : await Voter.findOne({ username });
-  if (!user) throw new createError.BadRequest("Invalid Username/Password");
-  const isMatch = await user.comparePass(password);
-  if (!isMatch) throw new createError.BadRequest("Invalid Username/Password");
+  if (!user) throw createError.BadRequest("Invalid Username/Password");
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) throw createError.BadRequest("Invalid Username/Password");
   const accessToken = await generateToken({ username, type });
   const refreshToken = await generateToken({ username, type }, "refresh");
   return { accessToken, refreshToken };

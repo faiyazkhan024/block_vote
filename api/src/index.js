@@ -32,7 +32,6 @@ app.use(async (_, __, next) => next(createError.NotFound()));
 app.use((err, _, res, __) =>
   res.status(err.status || 500).json({
     message: err.message,
-    stack: process.env.NODE_ENV === "development" && err.stack,
   })
 );
 

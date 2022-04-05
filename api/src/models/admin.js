@@ -34,15 +34,4 @@ adminSchema.pre("save", async function (next) {
   }
 });
 
-// Custom method for comparing password.
-adminSchema.method.comparePass = async function (password) {
-  if (!password) throw createError.BadRequest("Password is missing");
-  try {
-    const result = await bcrypt.compare(password, this.password);
-    return result;
-  } catch (error) {
-    console.error(`Error while comparing Password: ${error.message}`);
-  }
-};
-
 module.exports = mongoose.model("admin", adminSchema);

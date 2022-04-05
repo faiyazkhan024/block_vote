@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Avatar,
@@ -15,7 +15,37 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
+import axios from "../../config/axios";
+import useLocal from "../../hooks/useLocal";
+import setAuthState from "../../helpers/setAuthState";
+
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [auth, setAuth] = useLocal("auth", {});
+
+  useEffect(() => {
+    setAuthState(auth);
+  }, [auth]);
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    if (!username && !password) return setError("Invalid Username/Password");
+    try {
+      const response = await axios.post("auth/login/admin", {
+        username,
+        password,
+      });
+      setAuth({
+        accessToken: response.data.accessToken,
+        refreshToken: response.data.refreshToken,
+      });
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -33,16 +63,31 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={() => {}} noValidate sx={{ mt: 1 }}>
+
+        <Box
+          component="form"
+          onSubmit={submitHandler}
+          noValidate
+          sx={{ mt: 1 }}
+        >
+          {error && (
+            <Typography
+              sx={{ fontSize: 14, color: "red", textAlign: "center" }}
+            >
+              {error}
+            </Typography>
+          )}
           <TextField
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
             autoFocus
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -53,6 +98,8 @@ const Login = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
