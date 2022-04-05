@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "./components/Layout/Layout";
@@ -11,18 +12,35 @@ import Elections from "./pages/Elections/Elections";
 import Candidates from "./pages/Candidates/Candidates";
 import Setting from "./pages/Setting/Setting";
 
+import setAuthState from "./helpers/setAuthState";
+import useLocal from "./hooks/useLocal";
 import useAuth from "./hooks/useAuth";
 
 const App = () => {
   const { accessToken: token } = useAuth();
+  const [auth] = useLocal("auth", "");
+
+  useEffect(() => {
+    setAuthState(auth);
+  });
+
+  const handelIndexRoute = !token ? (
+    <Navigate to="/login" replace />
+  ) : (
+    <Navigate to="/dashboard" replace />
+  );
+
+  const handleLoginRoute = !token ? (
+    <Login />
+  ) : (
+    <Navigate to="/dashboard" replace />
+  );
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={!token ? <Login /> : <Dashboard />} />
-        <Route
-          path="/login"
-          element={!token ? <Login /> : <Navigate to="/dashboard" replace />}
-        />
+        <Route index element={handelIndexRoute} />
+        <Route path="/login" element={handleLoginRoute} />
         {token && (
           <Route path="dashboard" element={<Dashboard />}>
             <Route index element={<Home />} />
