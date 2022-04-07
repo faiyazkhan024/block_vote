@@ -18,7 +18,7 @@ const LoginForm = () => {
   useEffect(() => {
     setAuthState(auth);
     if (Object.keys(auth).length !== 0) navigate(from, { replace: true });
-  }, [auth]);
+  }, [auth, navigate, from]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
