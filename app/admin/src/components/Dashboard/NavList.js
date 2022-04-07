@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { ListItemButton, ListItemText, ListItemIcon } from "@mui/material";
+
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 import BallotIcon from "@mui/icons-material/Ballot";
 import SettingsIcon from "@mui/icons-material/Settings";

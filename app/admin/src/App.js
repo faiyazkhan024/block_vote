@@ -22,6 +22,7 @@ const App = () => {
         </Route>
         <Route element={<RequireAuth />}>
           <Route path="dashboard" element={<Dashboard />}>
+            <Route index element={<Home />} />
             <Route path="voters" element={<Voters />} />
             <Route path="candidates" element={<Candidates />} />
             <Route path="elections" element={<Elections />} />
