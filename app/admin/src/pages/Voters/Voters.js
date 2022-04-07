@@ -46,7 +46,7 @@ const Voters = () => {
 
   return (
     <>
-      <Bar btnTxt="Add Voter" BtnIcon={PeopleIcon} />
+      <Bar btnTxt="Add Voter" BtnIcon={PeopleIcon} to="add" />
       {voters.length === 0 ? (
         <Empty comment="No voter found try adding voter." />
       ) : (

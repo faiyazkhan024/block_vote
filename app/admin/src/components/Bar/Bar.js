@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import {
   Box,
@@ -60,7 +61,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Bar = ({ onClick, btnTxt, BtnIcon }) => {
+const Bar = ({ to, btnTxt, BtnIcon }) => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -92,7 +93,7 @@ const Bar = ({ onClick, btnTxt, BtnIcon }) => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <Button onClick={onClick} startIcon={<BtnIcon />}>
+        <Button to={to} component={RouterLink} startIcon={<BtnIcon />}>
           {btnTxt}
         </Button>
       </MenuItem>
@@ -117,7 +118,8 @@ const Bar = ({ onClick, btnTxt, BtnIcon }) => {
 
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <Button
-              onClick={onClick}
+              to={to}
+              component={RouterLink}
               variant="contained"
               startIcon={<BtnIcon />}
             >

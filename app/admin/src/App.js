@@ -11,6 +11,9 @@ import NotFound from "./pages/NotFound/NotFound";
 import Elections from "./pages/Elections/Elections";
 import Candidates from "./pages/Candidates/Candidates";
 import Setting from "./pages/Setting/Setting";
+import AddVoter from "./pages/Voters/AddVoter";
+import AddCandidate from "./pages/Candidates/AddCandidate";
+import CreateElector from "./pages/Elections/CreateElection";
 
 const App = () => {
   return (
@@ -24,8 +27,11 @@ const App = () => {
           <Route path="dashboard" element={<Dashboard />}>
             <Route index element={<Home />} />
             <Route path="voters" element={<Voters />} />
+            <Route path="voters/add" element={<AddVoter />} />
             <Route path="candidates" element={<Candidates />} />
+            <Route path="candidates/add" element={<AddCandidate />} />
             <Route path="elections" element={<Elections />} />
+            <Route path="elections/create" element={<CreateElector />} />
             <Route path="setting" element={<Setting />} />
           </Route>
         </Route>

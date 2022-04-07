@@ -44,7 +44,7 @@ const Elections = () => {
 
   return (
     <>
-      <Bar btnTxt="Create Election" BtnIcon={BallotIcon} />
+      <Bar btnTxt="Create Election" BtnIcon={BallotIcon} to="create" />
       {elections.length === 0 ? (
         <Empty comment="No election found try creating election" />
       ) : (

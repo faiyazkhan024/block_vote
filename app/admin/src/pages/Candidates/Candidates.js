@@ -41,7 +41,7 @@ const Candidates = () => {
 
   return (
     <>
-      <Bar btnTxt="Add Candidate" BtnIcon={RecordVoiceOverIcon} />
+      <Bar btnTxt="Add Candidate" BtnIcon={RecordVoiceOverIcon} to="add" />
       {candidates.length === 0 ? (
         <Empty comment="No candidate found try adding candidate." />
       ) : (
