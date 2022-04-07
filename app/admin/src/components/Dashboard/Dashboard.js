@@ -139,7 +139,7 @@ const Dashboard = () => {
         }}
       >
         <Toolbar />
-        <Container maxWidth="xl" sx={{ mt: 8, mb: 4 }}>
+        <Container maxWidth="xl" height="100%" sx={{ mt: 8, mb: 4 }}>
           <Outlet />
         </Container>
       </Box>

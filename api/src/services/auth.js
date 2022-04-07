@@ -25,9 +25,4 @@ const token = async (refreshToken, type) => {
   return { accessToken };
 };
 
-const logout = async (refreshToken, type) => {
-  const { username } = await verifyToken(refreshToken, "refresh");
-  return { username, type, message: "Logged out" };
-};
-
-module.exports = { login, token, logout };
+module.exports = { login, token };

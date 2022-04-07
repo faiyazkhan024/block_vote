@@ -1,13 +1,15 @@
 import React, { useReducer, useEffect } from "react";
-import { Box } from "@mui/material";
 import PeopleIcon from "@mui/icons-material/People";
 
 import Bar from "../../components/Bar/Bar";
+import Empty from "../../components/Empty/Empty";
 import axios from "../../config/axios";
 import useAuth from "../../hooks/useAuth";
 
 const voterReducer = (voters = [], action) => {
   switch (action.type) {
+    case "fetch":
+      return [...voters, ...action.payload];
     case "create":
       return [...voters, action.payload];
     case "update":
@@ -24,20 +26,29 @@ const Voters = () => {
   const [voters, dispatch] = useReducer(voterReducer, []);
   const { accessToken } = useAuth();
 
-  const getUser = async () => {
-    const config = { headers: { authorization: `Bearer ${accessToken}` } };
-    const { data } = axios.get("voter", config);
-    dispatch({ type: "create", payload: data });
+  const getVoters = async () => {
+    try {
+      const config = { headers: { authorization: `Bearer ${accessToken}` } };
+      const { data } = await axios.get("voter", config);
+      dispatch({ type: "fetch", payload: data });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    getUser();
+    getVoters();
   }, []);
 
   return (
-    <Box>
+    <>
       <Bar btnTxt="Add Voter" BtnIcon={PeopleIcon} />
-    </Box>
+      {voters.length === 0 ? (
+        <Empty comment="No voter found try adding voter." />
+      ) : (
+        <div>Voters</div>
+      )}
+    </>
   );
 };
 

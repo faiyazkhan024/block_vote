@@ -11,7 +11,8 @@ const generateToken = (payload, refresh) => {
   };
   return new Promise((resolve, reject) => {
     jwt.sign(payload, secret, options, (err, token) => {
-      if (err) return reject(createError.InternalServerError());
+      if (err)
+        throw reject(createError.InternalServerError("Something went wrong"));
       resolve(token);
     });
   });
@@ -23,7 +24,7 @@ const verifyToken = (token, refresh) => {
     : process.env.ACCESS_TOKEN_SECRET;
   return new Promise((resolve, reject) => {
     jwt.verify(token, secret, (err, result) => {
-      if (err) return reject(createError.UnprocessableEntity());
+      if (err) throw reject(createError.Unauthorized("Invalid Token"));
       resolve(result);
     });
   });

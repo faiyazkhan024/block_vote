@@ -100,7 +100,7 @@ const Bar = ({ onClick, btnTxt, BtnIcon }) => {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, mb: 3 }}>
       <AppBar position="static" color="inherit" elevation={0}>
         <Toolbar>
           <Search>
