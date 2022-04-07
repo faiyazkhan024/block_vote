@@ -4,6 +4,7 @@ import {
   Box,
   List,
   Toolbar,
+  Button,
   Divider,
   Container,
   Typography,
@@ -15,6 +16,7 @@ import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
+import setAuthState from "../../helpers/setAuthState";
 import NavList from "./NavList";
 
 const drawerWidth = 240;
@@ -66,6 +68,11 @@ const Drawer = styled(MuiDrawer, {
 const Dashboard = () => {
   const [open, setOpen] = useState(true);
 
+  const logoutHandler = () => {
+    localStorage.removeItem("auth");
+    setAuthState({});
+  };
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -75,7 +82,7 @@ const Dashboard = () => {
       <AppBar position="absolute" open={open}>
         <Toolbar
           sx={{
-            pr: "24px", // keep right padding when drawer closed
+            pr: "24px",
           }}
         >
           <IconButton
@@ -99,7 +106,9 @@ const Dashboard = () => {
           >
             Dashboard
           </Typography>
-          <Typography>Logout</Typography>
+          <Button color="inherit" onClick={logoutHandler}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
