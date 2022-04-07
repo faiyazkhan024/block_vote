@@ -19,7 +19,7 @@ const getElection = asyncHandler(async (req, res, next) => {
   const electionId = req.params;
   if (!electionId) next(createError.BadRequest("Candidate ID is required."));
   try {
-    const election = Election.find({ _id: electionId });
+    const election = await Election.find({ _id: electionId });
     if (!election.length)
       next(
         createError.BadRequest(`Election with id:${electionId} is not found`)
@@ -32,7 +32,7 @@ const getElection = asyncHandler(async (req, res, next) => {
 
 const getAllElection = asyncHandler(async (_, res, next) => {
   try {
-    const allElection = Election.find();
+    const allElection = await Election.find({});
     res.status(200).json(allElection);
   } catch (error) {
     next(error);

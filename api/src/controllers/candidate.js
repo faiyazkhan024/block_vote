@@ -19,7 +19,7 @@ const getCandidate = asyncHandler(async (req, res, next) => {
   const candidateId = req.params;
   if (!candidateId) next(createError.BadRequest("Candidate ID is required."));
   try {
-    const candidate = Candidate.find({ _id: candidateId });
+    const candidate = await Candidate.find({ _id: candidateId });
     if (!candidate.length)
       next(
         createError.BadRequest(`Candidate with id:${candidateId} is not found`)
@@ -32,7 +32,7 @@ const getCandidate = asyncHandler(async (req, res, next) => {
 
 const getAllCandidate = asyncHandler(async (_, res, next) => {
   try {
-    const allCandidate = Candidate.find();
+    const allCandidate = await Candidate.find({});
     res.status(200).json(allCandidate);
   } catch (error) {
     next(error);
