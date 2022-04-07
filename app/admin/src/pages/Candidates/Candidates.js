@@ -1,10 +1,11 @@
 import React, { useReducer, useEffect } from "react";
+import { List } from "@mui/material";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 
 import Bar from "../../components/Bar/Bar";
 import Empty from "../../components/Empty/Empty";
+import ListItem from "../../components/ListItem/ListItem";
 import axios from "../../config/axios";
-import useAuth from "../../hooks/useAuth";
 
 const candidateReducer = (candidates = [], action) => {
   switch (action.type) {
@@ -28,7 +29,6 @@ const Candidates = () => {
   const getCandidate = async () => {
     try {
       const { data } = await axios.get("candidate");
-      console.log(data);
       dispatch({ type: "fetch", payload: data });
     } catch (error) {
       console.error(error);
@@ -45,7 +45,9 @@ const Candidates = () => {
       {candidates.length === 0 ? (
         <Empty comment="No candidate found try adding candidate." />
       ) : (
-        <div>Candidate</div>
+        <List>
+          <ListItem />
+        </List>
       )}
     </>
   );

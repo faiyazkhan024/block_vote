@@ -1,8 +1,10 @@
 import React, { useReducer, useEffect } from "react";
+import { List } from "@mui/material";
 import BallotIcon from "@mui/icons-material/Ballot";
 
 import Bar from "../../components/Bar/Bar";
 import Empty from "../../components/Empty/Empty";
+import ListItem from "../../components/ListItem/ListItem";
 import axios from "../../config/axios";
 import useAuth from "../../hooks/useAuth";
 
@@ -46,7 +48,9 @@ const Elections = () => {
       {elections.length === 0 ? (
         <Empty comment="No election found try creating election" />
       ) : (
-        <div>election</div>
+        <List>
+          <ListItem />
+        </List>
       )}
     </>
   );

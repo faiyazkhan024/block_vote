@@ -6,7 +6,7 @@ import empty from "../../assets/empty.jpg";
 const Empty = ({ comment }) => {
   return (
     <Paper elevation={0}>
-      <Box sx={{ width: "60%", margin: "auto", pt: 10 }}>
+      <Box sx={{ width: "60%", maxWidth: "600px", margin: "auto", pt: 10 }}>
         <img src={empty}></img>
       </Box>
       <Grid
