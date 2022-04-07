@@ -50,21 +50,20 @@ const Layout = () => {
       <main>
         <Outlet />
       </main>
-      <footer>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          align="center"
-          sx={{ pt: 4 }}
-        >
-          {"Copyright © "}
-          <Link to="/" color="inherit" component={RouterLink}>
-            Block Vote
-          </Link>{" "}
-          {new Date().getFullYear()}
-          {"."}
-        </Typography>
-      </footer>
+
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        sx={{ pt: 4 }}
+      >
+        {"Copyright © "}
+        <Link to="/" color="inherit" component={RouterLink}>
+          Block Vote
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
     </>
   );
 };

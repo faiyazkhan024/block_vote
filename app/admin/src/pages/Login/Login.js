@@ -1,50 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import {
-  Avatar,
-  Button,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Grid,
-  Box,
-  Link,
-  Typography,
-  Container,
-} from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import React from "react";
+import { Avatar, Typography, Container, Link, Box, Grid } from "@mui/material";
 
-import axios from "../../config/axios";
-import useLocal from "../../hooks/useLocal";
-import setAuthState from "../../helpers/setAuthState";
+import LoginForm from "./LoginForm";
+import Logo from "../../assets/logo.png";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [auth, setAuth] = useLocal("auth", {});
-
-  useEffect(() => {
-    setAuthState(auth);
-  }, [auth]);
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    if (!username && !password) return setError("Invalid Username/Password");
-    try {
-      const response = await axios.post("auth/login/admin", {
-        username,
-        password,
-      });
-      setAuth({
-        accessToken: response.data.accessToken,
-        refreshToken: response.data.refreshToken,
-      });
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -55,71 +15,16 @@ const Login = () => {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
+        <Avatar alt="Logo" src={Logo} sx={{ width: 58, height: 58 }} />
+        <Typography component="h1" variant="h3">
           Sign in
         </Typography>
-
-        <Box
-          component="form"
-          onSubmit={submitHandler}
-          noValidate
-          sx={{ mt: 1 }}
-        >
-          {error && (
-            <Typography
-              sx={{ fontSize: 14, color: "red", textAlign: "center" }}
-            >
-              {error}
-            </Typography>
-          )}
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoComplete="username"
-            autoFocus
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link to="/verify-email" variant="body2" component={RouterLink}>
-                Forgot password?
-              </Link>
-            </Grid>
-          </Grid>
-        </Box>
+        <Typography component="p">Login using admin credential</Typography>
       </Box>
+      <LoginForm />
+      <Link href="#" variant="body2">
+        Forgot password?
+      </Link>
     </Container>
   );
 };
