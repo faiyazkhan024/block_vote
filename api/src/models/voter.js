@@ -18,42 +18,38 @@ const voterSchema = mongoose.Schema({
     min: 6,
     max: 255,
   },
-  name: {
-    firstName: {
-      type: String,
-      trim: true,
-      min: 3,
-      max: 255,
-    },
-    middleName: {
-      type: String,
-      trim: true,
-      min: 3,
-      max: 255,
-    },
-    lastName: {
-      type: String,
-      trim: true,
-      min: 3,
-      max: 255,
-    },
+  firstName: {
+    type: String,
+    trim: true,
+    min: 3,
+    max: 255,
+  },
+  middleName: {
+    type: String,
+    trim: true,
+    min: 3,
+    max: 255,
+  },
+  lastName: {
+    type: String,
+    trim: true,
+    min: 3,
+    max: 255,
   },
   dateOfBirth: Date,
   avatar: Buffer,
-  contact: {
-    mobile: {
-      type: String,
-      trim: true,
-      unique: true,
-      min: 10,
-      max: 10,
-    },
-    email: {
-      type: String,
-      trim: true,
-      unique: true,
-      max: 255,
-    },
+  mobile: {
+    type: String,
+    trim: true,
+    unique: true,
+    min: 10,
+    max: 10,
+  },
+  email: {
+    type: String,
+    trim: true,
+    unique: true,
+    max: 255,
   },
 });
 
