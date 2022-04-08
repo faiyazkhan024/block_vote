@@ -16,7 +16,7 @@ const login = async (loginCredential, type) => {
   if (!isMatch) throw createError.BadRequest("Invalid Username/Password");
   const accessToken = await generateToken({ username, type });
   const refreshToken = await generateToken({ username, type }, "refresh");
-  return { accessToken, refreshToken };
+  return { user, accessToken, refreshToken };
 };
 
 const token = async (refreshToken, type) => {
