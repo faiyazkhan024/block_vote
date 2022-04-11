@@ -7,6 +7,7 @@ import Empty from "../../components/Empty/Empty";
 import ListItem from "../../components/ListItem/ListItem";
 import axios from "../../config/axios";
 import useAuth from "../../hooks/useAuth";
+import setNavState from "../../helpers/setNavState";
 
 const voterReducer = (voters = [], action) => {
   switch (action.type) {
@@ -39,6 +40,10 @@ const Voters = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    setNavState("Voters");
+  }, []);
 
   useEffect(() => {
     getVoters(accessToken);

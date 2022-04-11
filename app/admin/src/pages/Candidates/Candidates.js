@@ -6,6 +6,7 @@ import Bar from "../../components/Bar/Bar";
 import Empty from "../../components/Empty/Empty";
 import ListItem from "../../components/ListItem/ListItem";
 import axios from "../../config/axios";
+import setNavState from "../../helpers/setNavState";
 
 const candidateReducer = (candidates = [], action) => {
   switch (action.type) {
@@ -38,6 +39,7 @@ const Candidates = () => {
   };
 
   useEffect(() => {
+    setNavState("Candidates");
     getCandidate();
   }, []);
 

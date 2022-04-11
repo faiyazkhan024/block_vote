@@ -16,6 +16,7 @@ import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
+import useNav from "../../hooks/useNav";
 import setAuthState from "../../helpers/setAuthState";
 import NavList from "./NavList";
 
@@ -76,6 +77,7 @@ const Drawer = styled(MuiDrawer, {
 
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
+  const { location } = useNav();
 
   const logoutHandler = () => {
     localStorage.removeItem("auth");
@@ -113,7 +115,7 @@ const Dashboard = () => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            Dashboard
+            {location}
           </Typography>
           <Button color="inherit" onClick={logoutHandler}>
             Logout
