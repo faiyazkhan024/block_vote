@@ -21,6 +21,8 @@ const electionReducer = (elections = [], action) => {
       ];
     case "delete":
       return elections.filter((item) => item.id !== action.payload.id);
+    default:
+      throw new Error("Unknown action type");
   }
 };
 
@@ -28,9 +30,9 @@ const Elections = () => {
   const [elections, dispatch] = useReducer(electionReducer, []);
   const { accessToken } = useAuth();
 
-  const getElections = async () => {
+  const getElections = async (accessToken) => {
+    const config = { headers: { authorization: `Bearer ${accessToken}` } };
     try {
-      const config = { headers: { authorization: `Bearer ${accessToken}` } };
       const { data } = await axios.get("election", config);
       dispatch({ type: "fetch", payload: data });
     } catch (error) {
@@ -39,8 +41,8 @@ const Elections = () => {
   };
 
   useEffect(() => {
-    getElections();
-  }, []);
+    getElections(accessToken);
+  }, [accessToken]);
 
   return (
     <>

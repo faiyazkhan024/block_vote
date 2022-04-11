@@ -20,6 +20,8 @@ const candidateReducer = (candidates = [], action) => {
       ];
     case "delete":
       return candidates.filter((item) => item.id !== action.payload.id);
+    default:
+      throw new Error("Unknown action type");
   }
 };
 

@@ -7,7 +7,7 @@ const Empty = ({ comment }) => {
   return (
     <Paper elevation={0}>
       <Box sx={{ width: "60%", maxWidth: "600px", margin: "auto", pt: 10 }}>
-        <img src={empty}></img>
+        <img src={empty} alt=""></img>
       </Box>
       <Grid
         container
@@ -18,7 +18,7 @@ const Empty = ({ comment }) => {
         <Typography component="h2" variant="h3">
           Empty
         </Typography>
-        <Typography component="p" variant="subtitle1">
+        <Typography component="p" variant="subtitle1" align="center">
           {comment}
         </Typography>
         <Box sx={{ mb: 5 }} />

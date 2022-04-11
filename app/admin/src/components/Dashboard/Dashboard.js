@@ -32,6 +32,9 @@ const AppBar = styled(MuiAppBar, {
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
+    [theme.breakpoints.down("sm")]: {
+      width: "0",
+    },
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -46,6 +49,9 @@ const Drawer = styled(MuiDrawer, {
     position: "relative",
     whiteSpace: "nowrap",
     width: drawerWidth,
+    [theme.breakpoints.down("sm")]: {
+      width: "100vw",
+    },
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -61,12 +67,15 @@ const Drawer = styled(MuiDrawer, {
       [theme.breakpoints.up("sm")]: {
         width: theme.spacing(9),
       },
+      [theme.breakpoints.down("sm")]: {
+        width: "0",
+      },
     }),
   },
 }));
 
 const Dashboard = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const logoutHandler = () => {
     localStorage.removeItem("auth");
@@ -126,7 +135,7 @@ const Dashboard = () => {
         </Toolbar>
         <Divider />
         <List component="nav">
-          <NavList />
+          <NavList setOpen={setOpen} />
         </List>
       </Drawer>
       <Box

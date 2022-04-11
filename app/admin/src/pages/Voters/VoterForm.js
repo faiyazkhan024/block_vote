@@ -1,7 +1,9 @@
 import React from "react";
 
 import { Grid, TextField, Button } from "@mui/material";
-import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Formik, Form, Field } from "formik";
 
 export default function AddressForm({ onSubmit }) {
@@ -9,9 +11,8 @@ export default function AddressForm({ onSubmit }) {
     firstName: "",
     middleName: "",
     lastName: "",
+    dateOfBirth: Date.now(),
     email: "",
-    username: "",
-    password: "",
     mobile: "",
   };
 
@@ -21,11 +22,7 @@ export default function AddressForm({ onSubmit }) {
       onSubmit={onSubmit}
       enableReinitialize
     >
-      {({
-        values,
-        handleChange,
-        /* and other goodies */
-      }) => (
+      {({ values, handleChange, setFieldValue }) => (
         <Grid container spacing={3} component={Form}>
           <Grid item xs={12} sm={6}>
             <Field
@@ -36,7 +33,6 @@ export default function AddressForm({ onSubmit }) {
               type="text"
               fullWidth
               autoComplete="given-name"
-              variant="standard"
               value={values.firstName}
               onChange={handleChange}
               component={TextField}
@@ -51,7 +47,6 @@ export default function AddressForm({ onSubmit }) {
               type="text"
               fullWidth
               autoComplete="middle-name"
-              variant="standard"
               value={values.middleName}
               onChange={handleChange}
               component={TextField}
@@ -66,23 +61,27 @@ export default function AddressForm({ onSubmit }) {
               type="text"
               fullWidth
               autoComplete="family-name"
-              variant="standard"
               value={values.lastName}
               onChange={handleChange}
               component={TextField}
             />
           </Grid>
-          {/* <Grid item xs={12} sm={6}>
-            <DesktopDatePicker
-              id="dateOfBirth"
-              name="dateOfBirth"
-              label="Date desktop"
-              inputFormat="MM/dd/yyyy"
-              value={values.dateOfBirth}
-              onChange={handleChange}
-              renderInput={(params) => <TextField />}
-            />
-          </Grid> */}
+          <Grid item xs={12} sm={6}>
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DatePicker
+                disableFuture
+                id="dateOfBirth"
+                name="dateOfBirth"
+                label="Date of Birth"
+                openTo="year"
+                value={values.dateOfBirth}
+                onChange={(value) => {
+                  setFieldValue("dateOfBirth", Date.parse(value));
+                }}
+                renderInput={(params) => <TextField fullWidth {...params} />}
+              />
+            </LocalizationProvider>
+          </Grid>
           <Grid item xs={12}>
             <Field
               required
@@ -92,43 +91,12 @@ export default function AddressForm({ onSubmit }) {
               type="email"
               fullWidth
               autoComplete="email"
-              variant="standard"
               value={values.email}
               onChange={handleChange}
               component={TextField}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Field
-              required
-              id="username"
-              name="username"
-              label="Username"
-              type="text"
-              fullWidth
-              autoComplete="username"
-              variant="standard"
-              value={values.username}
-              onChange={handleChange}
-              component={TextField}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Field
-              required
-              id="password"
-              name="password"
-              label="Password"
-              type="password"
-              fullWidth
-              autoComplete="password"
-              variant="standard"
-              value={values.password}
-              onChange={handleChange}
-              component={TextField}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <Field
               id="mobile"
               name="mobile"
@@ -136,14 +104,13 @@ export default function AddressForm({ onSubmit }) {
               type="tel"
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
               fullWidth
-              variant="standard"
               value={values.mobile}
               onChange={handleChange}
               component={TextField}
             />
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="contained">
+            <Button fullWidth type="submit" variant="contained">
               Add
             </Button>
           </Grid>

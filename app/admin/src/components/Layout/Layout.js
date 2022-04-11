@@ -1,14 +1,6 @@
 import { Outlet, Link as RouterLink } from "react-router-dom";
 
-import {
-  Typography,
-  AppBar,
-  Box,
-  Link,
-  Toolbar,
-  Button,
-  Avatar,
-} from "@mui/material";
+import { Typography, AppBar, Box, Link, Toolbar, Button } from "@mui/material";
 
 const Layout = () => {
   return (
