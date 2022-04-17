@@ -33,7 +33,10 @@ const ListItem = ({ item, onDelete }) => {
               <AccountCircleIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={item.username} secondary={item.email} />
+          <ListItemText
+            primary={`${item.firstName} ${item.middleName} ${item.lastName}`}
+            secondary={item.email}
+          />
         </MuiListItem>
       </Paper>
     </Box>

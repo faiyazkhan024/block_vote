@@ -6,12 +6,13 @@ import Bar from "../../components/Bar/Bar";
 import Empty from "../../components/Empty/Empty";
 import ListItem from "../../components/ListItem/ListItem";
 import axios from "../../config/axios";
+import useAuth from "../../hooks/useAuth";
 import setNavState from "../../helpers/setNavState";
 
 const candidateReducer = (candidates = [], action) => {
   switch (action.type) {
     case "fetch":
-      return [...candidates, ...action.payload];
+      return [...action.payload];
     case "create":
       return [...candidates, action.payload];
     case "update":
@@ -28,11 +29,22 @@ const candidateReducer = (candidates = [], action) => {
 
 const Candidates = () => {
   const [candidates, dispatch] = useReducer(candidateReducer, []);
+  const { accessToken } = useAuth();
 
   const getCandidate = async () => {
     try {
       const { data } = await axios.get("candidate");
       dispatch({ type: "fetch", payload: data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteCandidate = async (id) => {
+    const config = { headers: { authorization: `Bearer ${accessToken}` } };
+    try {
+      const deleteCandidate = await axios.delete(`candidate/${id}`, config);
+      dispatch({ type: "delete", payload: deleteCandidate });
     } catch (error) {
       console.error(error);
     }
@@ -50,7 +62,13 @@ const Candidates = () => {
         <Empty comment="No candidate found try adding candidate." />
       ) : (
         <List>
-          <ListItem />
+          {candidates.map((candidate) => (
+            <ListItem
+              key={`${candidate._id}`}
+              item={candidate}
+              onDelete={deleteCandidate}
+            />
+          ))}
         </List>
       )}
     </>

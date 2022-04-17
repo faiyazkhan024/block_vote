@@ -5,6 +5,7 @@ const {
   postCandidate,
   getCandidate,
   getAllCandidate,
+  deleteCandidate,
 } = require("../controllers/candidate");
 
 const router = express.Router();
@@ -14,5 +15,7 @@ router.post("/", authenticate(["admin"]), postCandidate);
 router.get("/", getAllCandidate);
 
 router.get("/:id", getCandidate);
+
+router.delete("/:id", authenticate(["admin"]), deleteCandidate);
 
 module.exports = router;
