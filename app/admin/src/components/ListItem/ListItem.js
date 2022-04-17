@@ -10,14 +10,14 @@ import {
   Paper,
 } from "@mui/material";
 
-import FolderIcon from "@mui/icons-material/Folder";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const ListItem = () => {
+const ListItem = ({ item }) => {
   return (
     <Box sx={{ mb: 2 }}>
-      <Paper elevation={0} rounded sx={{ px: 3 }}>
+      <Paper elevation={0} sx={{ px: 3 }}>
         <MuiListItem
           secondaryAction={
             <>
@@ -33,10 +33,10 @@ const ListItem = () => {
         >
           <ListItemAvatar>
             <Avatar>
-              <FolderIcon />
+              <AccountCircleIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Single-line item" secondary="Secondary text" />
+          <ListItemText primary={item.username} secondary={item.email} />
         </MuiListItem>
       </Paper>
     </Box>

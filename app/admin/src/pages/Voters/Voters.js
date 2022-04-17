@@ -12,7 +12,7 @@ import setNavState from "../../helpers/setNavState";
 const voterReducer = (voters = [], action) => {
   switch (action.type) {
     case "fetch":
-      return [...voters, ...action.payload];
+      return [...action.payload];
     case "create":
       return [...voters, action.payload];
     case "update":
@@ -56,7 +56,9 @@ const Voters = () => {
         <Empty comment="No voter found try adding voter." />
       ) : (
         <List>
-          <ListItem />
+          {voters.map((voter) => (
+            <ListItem key={`${voter._id}`} item={voter} />
+          ))}
         </List>
       )}
     </>
