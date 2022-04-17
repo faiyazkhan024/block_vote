@@ -26,8 +26,8 @@ const getVoter = asyncHandler(async (req, res, next) => {
   const voterId = req.params;
   if (!voterId) next(createError.BadRequest("Voter ID is required."));
   try {
-    const voter = await Voter.find({ _id: voterId });
-    if (!voter.length)
+    const voter = await Voter.findOne({ _id: voterId });
+    if (!voter)
       next(createError.BadRequest(`Voter with id:${voterId} is not found`));
     res.status(200).json(voter);
   } catch (error) {
@@ -44,4 +44,15 @@ const getAllVoter = asyncHandler(async (_, res, next) => {
   }
 });
 
-module.exports = { postVoter, getVoter, getAllVoter };
+const deleteVoter = asyncHandler(async (req, res, next) => {
+  const voterId = req.params.id;
+  if (!voterId) next(createError.BadRequest("Voter ID is required."));
+  try {
+    const voter = await Voter.findOneAndDelete({ _id: voterId });
+    res.status(200).json(voter);
+  } catch (error) {
+    next(error);
+  }
+});
+
+module.exports = { postVoter, getVoter, getAllVoter, deleteVoter };

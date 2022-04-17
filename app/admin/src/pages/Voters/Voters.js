@@ -41,6 +41,16 @@ const Voters = () => {
     }
   };
 
+  const deleteVoter = async (id) => {
+    const config = { headers: { authorization: `Bearer ${accessToken}` } };
+    try {
+      const deletedVoter = await axios.delete(`voter/${id}`, config);
+      dispatch({ type: "delete", payload: deletedVoter });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     setNavState("Voters");
   }, []);
@@ -57,7 +67,11 @@ const Voters = () => {
       ) : (
         <List>
           {voters.map((voter) => (
-            <ListItem key={`${voter._id}`} item={voter} />
+            <ListItem
+              key={`${voter._id}`}
+              item={voter}
+              onDelete={deleteVoter}
+            />
           ))}
         </List>
       )}

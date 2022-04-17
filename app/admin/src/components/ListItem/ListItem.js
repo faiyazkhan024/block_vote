@@ -10,25 +10,22 @@ import {
   Paper,
 } from "@mui/material";
 
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const ListItem = ({ item }) => {
+const ListItem = ({ item, onDelete }) => {
   return (
     <Box sx={{ mb: 2 }}>
       <Paper elevation={0} sx={{ px: 3 }}>
         <MuiListItem
           secondaryAction={
-            <>
-              <IconButton edge="end" aria-label="delete">
-                <EditIcon color="primary" />
-              </IconButton>
-              <Box sx={{ mx: 1, display: "inline" }} />
-              <IconButton edge="end" aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-            </>
+            <IconButton
+              edge="end"
+              aria-label="delete"
+              onClick={() => onDelete(item._id)}
+            >
+              <DeleteIcon color="error" />
+            </IconButton>
           }
         >
           <ListItemAvatar>
