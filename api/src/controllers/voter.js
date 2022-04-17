@@ -1,16 +1,23 @@
 const asyncHandler = require("express-async-handler");
 const createError = require("http-errors");
 
+const mail = require("../services/mail");
 const Voter = require("../models/voter");
+const generatePass = require("../helpers/generatePass");
 
 const postVoter = asyncHandler(async (req, res, next) => {
   const voter = req.body;
   if (!voter) next(createError.BadRequest("Voter is Empty"));
+  const { email } = voter;
+  const username = voter.email.split("@")[0];
+  const password = generatePass(10);
   try {
-    const newVoter = await Voter(voter);
+    const newVoter = await Voter({ ...voter, username, password });
     const createdVoter = await newVoter.save();
+    await mail({ email, username, password });
     res.status(201).json(createdVoter);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });

@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const createError = require("http-errors");
 
 const voterSchema = mongoose.Schema({
   username: {
     type: String,
     trim: true,
-    required: true,
     unique: true,
+    required: true,
     min: 3,
     max: 255,
   },
@@ -49,6 +48,7 @@ const voterSchema = mongoose.Schema({
     type: String,
     trim: true,
     unique: true,
+    required: true,
     max: 255,
   },
 });
@@ -62,7 +62,6 @@ voterSchema.pre("save", async function (next) {
       next();
     }
   } catch (error) {
-    console.error(error);
     next(error);
   }
 });

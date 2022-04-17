@@ -6,12 +6,12 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Formik, Form, Field } from "formik";
 
-export default function AddressForm({ onSubmit }) {
+export default function AddressForm({ onSubmit, isLoading }) {
   const initialValues = {
     firstName: "",
     middleName: "",
     lastName: "",
-    dateOfBirth: Date.now(),
+    dateOfBirth: null,
     email: "",
     mobile: "",
   };
@@ -46,7 +46,7 @@ export default function AddressForm({ onSubmit }) {
               label="Middle name"
               type="text"
               fullWidth
-              autoComplete="middle-name"
+              autoComplete="name"
               value={values.middleName}
               onChange={handleChange}
               component={TextField}
@@ -73,7 +73,6 @@ export default function AddressForm({ onSubmit }) {
                 id="dateOfBirth"
                 name="dateOfBirth"
                 label="Date of Birth"
-                openTo="year"
                 value={values.dateOfBirth}
                 onChange={(value) => {
                   setFieldValue("dateOfBirth", Date.parse(value));
@@ -110,7 +109,12 @@ export default function AddressForm({ onSubmit }) {
             />
           </Grid>
           <Grid item xs={12}>
-            <Button fullWidth type="submit" variant="contained">
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+            >
               Add
             </Button>
           </Grid>

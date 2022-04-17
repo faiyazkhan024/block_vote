@@ -10,10 +10,8 @@ const CandidateForm = ({ onSubmit }) => {
     firstName: "",
     middleName: "",
     lastName: "",
-    dateOfBirth: Date.now(),
+    dateOfBirth: null,
     email: "",
-    username: "",
-    password: "",
     mobile: "",
     about: "",
   };
@@ -47,7 +45,7 @@ const CandidateForm = ({ onSubmit }) => {
               label="Middle name"
               type="text"
               fullWidth
-              autoComplete="middle-name"
+              autoComplete="name"
               value={values.middleName}
               onChange={handleChange}
               component={TextField}

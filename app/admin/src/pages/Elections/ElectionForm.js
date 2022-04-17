@@ -7,13 +7,12 @@ import { Formik, Form, Field } from "formik";
 
 const ElectionForm = ({ onSubmit }) => {
   const initialValues = {
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    email: "",
-    username: "",
-    password: "",
-    mobile: "",
+    for: "",
+    from: null,
+    to: null,
+    voters: [],
+    candidates: [],
+    about: "",
   };
   return (
     <Formik

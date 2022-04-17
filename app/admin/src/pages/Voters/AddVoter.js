@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import VoterForm from "./VoterForm";
 import FormContainer from "../../components/FormContainer/FormContainer";
+import axios from "../../config/axios";
+import useAuth from "../../hooks/useAuth";
 
 const AddVoter = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { accessToken } = useAuth();
+
+  const postVoter = async (values) => {
+    setIsLoading(true);
+    const config = { headers: { authorization: `Bearer ${accessToken}` } };
+    try {
+      const { data } = await axios.post("voter", values, config);
+      setIsLoading(false);
+      console.log(data);
+    } catch (error) {
+      setIsLoading(false);
+      console.error(error);
+    }
+  };
   return (
     <FormContainer title="Add Voter">
-      <VoterForm />
+      <VoterForm onSubmit={postVoter} isLoading={isLoading} />
     </FormContainer>
   );
 };
