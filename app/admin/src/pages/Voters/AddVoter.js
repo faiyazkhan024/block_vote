@@ -9,13 +9,13 @@ const AddVoter = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { accessToken } = useAuth();
 
-  const postVoter = async (values) => {
+  const postVoter = async (values, { resetForm }) => {
     setIsLoading(true);
     const config = { headers: { authorization: `Bearer ${accessToken}` } };
     try {
-      const { data } = await axios.post("voter", values, config);
+      await axios.post("voter", values, config);
       setIsLoading(false);
-      console.log(data);
+      resetForm();
     } catch (error) {
       setIsLoading(false);
       console.error(error);
