@@ -35,7 +35,7 @@ const App = () => {
       if (!accessToken) return;
       await getVoters({ dispatch: votersDispatch, accessToken });
     })();
-  }, [accessToken, votersDispatch, candidatesDispatch]);
+  }, [accessToken, votersDispatch, candidatesDispatch, electionsDispatch]);
 
   return (
     <Routes>
