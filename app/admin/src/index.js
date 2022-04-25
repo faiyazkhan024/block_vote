@@ -5,6 +5,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import "moment/locale/en-in";
 
 import App from "./App";
+import { VoterContextProvider } from "./context/voters";
+import { CandidateContextProvider } from "./context/candidates";
+import { ElectionContextProvider } from "./context/elections";
 
 import theme from "./theme";
 import "./index.css";
@@ -13,7 +16,13 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <App />
+        <CandidateContextProvider>
+          <ElectionContextProvider>
+            <VoterContextProvider>
+              <App />
+            </VoterContextProvider>
+          </ElectionContextProvider>
+        </CandidateContextProvider>
       </BrowserRouter>
     </ThemeProvider>
   </StrictMode>

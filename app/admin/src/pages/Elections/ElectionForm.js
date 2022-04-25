@@ -1,9 +1,35 @@
 import React from "react";
-import { Grid, TextField, Button } from "@mui/material";
+import {
+  Box,
+  Chip,
+  Grid,
+  Button,
+  Select,
+  Checkbox,
+  MenuItem,
+  TextField,
+  InputLabel,
+  FormControl,
+  ListItemText,
+  OutlinedInput,
+} from "@mui/material";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Formik, Form, Field } from "formik";
+
+const names = [
+  "Oliver Hansen",
+  "Van Henry",
+  "April Tucker",
+  "Ralph Hubbard",
+  "Omar Alexander",
+  "Carlos Abbott",
+  "Miriam Wagner",
+  "Bradley Wilkerson",
+  "Virginia Andrews",
+  "Kelly Snyder",
+];
 
 const ElectionForm = ({ onSubmit }) => {
   const initialValues = {
@@ -71,32 +97,78 @@ const ElectionForm = ({ onSubmit }) => {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={12}>
-            <Field
-              required
-              id="candidates"
-              name="candidates"
-              label="Select candidates"
-              type="text"
-              fullWidth
-              autoComplete="name"
-              value={values.candidates}
-              onChange={handleChange}
-              component={TextField}
-            />
+            <FormControl fullWidth>
+              <InputLabel id="candidates-label">Select Candidates</InputLabel>
+              <Select
+                required
+                multiple
+                id="candidates"
+                labelId="candidates-label"
+                value={values.candidates}
+                onChange={(event) => {
+                  setFieldValue("candidates", event.target.value);
+                }}
+                input={<OutlinedInput label="Select Candidates" />}
+                renderValue={(selected) => (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip key={value} label={value} />
+                    ))}
+                  </Box>
+                )}
+                MenuProps={{
+                  PaperProps: {
+                    style: {
+                      maxHeight: 250,
+                    },
+                  },
+                }}
+              >
+                {names.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    <Checkbox checked={values.candidates.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Field
-              required
-              id="voters"
-              name="voters"
-              label="Select voters"
-              type="text"
-              fullWidth
-              autoComplete="name"
-              value={values.voters}
-              onChange={handleChange}
-              component={TextField}
-            />
+            <FormControl fullWidth>
+              <InputLabel id="voters-label">Select Voters</InputLabel>
+              <Select
+                required
+                multiple
+                id="voters"
+                labelId="voters-label"
+                value={values.voters}
+                onChange={(event) => {
+                  setFieldValue("voters", event.target.value);
+                }}
+                input={<OutlinedInput label="Select Voters" />}
+                renderValue={(selected) => (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip key={value} label={value} />
+                    ))}
+                  </Box>
+                )}
+                MenuProps={{
+                  PaperProps: {
+                    style: {
+                      maxHeight: 250,
+                    },
+                  },
+                }}
+              >
+                {names.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    <Checkbox checked={values.candidates.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <Field

@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useEffect } from "react";
 import { List } from "@mui/material";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 
@@ -9,26 +9,10 @@ import axios from "../../config/axios";
 import useAuth from "../../hooks/useAuth";
 import setNavState from "../../helpers/setNavState";
 
-const candidateReducer = (candidates = [], action) => {
-  switch (action.type) {
-    case "fetch":
-      return [...action.payload];
-    case "create":
-      return [...candidates, action.payload];
-    case "update":
-      return [
-        ...candidates.filter((voter) => voter.id !== action.payload.id),
-        action.payload,
-      ];
-    case "delete":
-      return candidates.filter((item) => item.id !== action.payload.id);
-    default:
-      throw new Error("Unknown action type");
-  }
-};
+import useCandidates from "../../hooks/useCandidates";
 
 const Candidates = () => {
-  const [candidates, dispatch] = useReducer(candidateReducer, []);
+  const { candidates, dispatch } = useCandidates();
   const { accessToken } = useAuth();
 
   const getCandidate = async () => {

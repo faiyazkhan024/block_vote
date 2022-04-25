@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useEffect } from "react";
 import { List } from "@mui/material";
 import BallotIcon from "@mui/icons-material/Ballot";
 
@@ -9,26 +9,10 @@ import axios from "../../config/axios";
 import useAuth from "../../hooks/useAuth";
 import setNavState from "../../helpers/setNavState";
 
-const electionReducer = (elections = [], action) => {
-  switch (action.type) {
-    case "fetch":
-      return [...elections, ...action.payload];
-    case "create":
-      return [...elections, action.payload];
-    case "update":
-      return [
-        ...elections.filter((voter) => voter.id !== action.payload.id),
-        action.payload,
-      ];
-    case "delete":
-      return elections.filter((item) => item.id !== action.payload.id);
-    default:
-      throw new Error("Unknown action type");
-  }
-};
+import useElections from "../../hooks/useElections";
 
 const Elections = () => {
-  const [elections, dispatch] = useReducer(electionReducer, []);
+  const { elections, dispatch } = useElections();
   const { accessToken } = useAuth();
 
   const getElections = async (accessToken) => {

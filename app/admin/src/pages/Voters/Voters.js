@@ -1,54 +1,23 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useEffect } from "react";
 import { List } from "@mui/material";
 import PeopleIcon from "@mui/icons-material/People";
 
 import Bar from "../../components/Bar/Bar";
 import Empty from "../../components/Empty/Empty";
 import ListItem from "../../components/ListItem/ListItem";
-import axios from "../../config/axios";
-import useAuth from "../../hooks/useAuth";
-import setNavState from "../../helpers/setNavState";
 
-const voterReducer = (voters = [], action) => {
-  switch (action.type) {
-    case "fetch":
-      return [...action.payload];
-    case "create":
-      return [...voters, action.payload];
-    case "update":
-      return [
-        ...voters.filter((voter) => voter.id !== action.payload.id),
-        action.payload,
-      ];
-    case "delete":
-      return voters.filter((item) => item.id !== action.payload.id);
-    default:
-      throw new Error("Unknown action type");
-  }
-};
+import useAuth from "../../hooks/useAuth";
+import useVoters from "../../hooks/useVoters";
+import setNavState from "../../helpers/setNavState";
+import { getVoters, deleteVoter } from "../../service";
 
 const Voters = () => {
-  const [voters, dispatch] = useReducer(voterReducer, []);
+  const { voters, dispatch } = useVoters();
   const { accessToken } = useAuth();
 
-  const getVoters = async (accessToken) => {
-    const config = { headers: { authorization: `Bearer ${accessToken}` } };
-    try {
-      const { data } = await axios.get("voter", config);
-      dispatch({ type: "fetch", payload: data });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const deleteVoter = async (id) => {
-    const config = { headers: { authorization: `Bearer ${accessToken}` } };
-    try {
-      const deletedVoter = await axios.delete(`voter/${id}`, config);
-      dispatch({ type: "delete", payload: deletedVoter });
-    } catch (error) {
-      console.error(error);
-    }
+  const handleDeleteVoter = async (id) => {
+    const deletedVoter = await deleteVoter({ accessToken, id });
+    dispatch({ type: "delete", payload: deletedVoter });
   };
 
   useEffect(() => {
@@ -56,8 +25,11 @@ const Voters = () => {
   }, []);
 
   useEffect(() => {
-    getVoters(accessToken);
-  }, [accessToken]);
+    (async () => {
+      const voters = await getVoters({ accessToken });
+      dispatch({ type: "fetch", payload: voters });
+    })();
+  }, [accessToken, dispatch]);
 
   return (
     <>
@@ -70,7 +42,7 @@ const Voters = () => {
             <ListItem
               key={`${voter._id}`}
               item={voter}
-              onDelete={deleteVoter}
+              onDelete={handleDeleteVoter}
             />
           ))}
         </List>
