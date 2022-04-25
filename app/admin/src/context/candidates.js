@@ -2,13 +2,11 @@ import { createContext, useReducer } from "react";
 
 const candidateModel = {
   _id: "",
-  username: "",
   firstName: "",
   middleName: "",
   lastName: "",
   dateOfBirth: Date,
   avatar: "",
-  mobile: "",
   mobile: "",
   email: "",
   about: "",
@@ -36,6 +34,7 @@ const CandidateContext = createContext([]);
 
 export const CandidateContextProvider = ({ children }) => {
   const [candidates, dispatch] = useReducer(candidateReducer, []);
+
   return (
     <CandidateContext.Provider value={{ candidates, dispatch }}>
       {children}

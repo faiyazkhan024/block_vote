@@ -9,27 +9,19 @@ import ListItem from "../../components/ListItem/ListItem";
 import useAuth from "../../hooks/useAuth";
 import useVoters from "../../hooks/useVoters";
 import setNavState from "../../helpers/setNavState";
-import { getVoters, deleteVoter } from "../../service";
+import { deleteVoter } from "../../service";
 
 const Voters = () => {
-  const { voters, dispatch } = useVoters();
   const { accessToken } = useAuth();
-
-  const handleDeleteVoter = async (id) => {
-    const deletedVoter = await deleteVoter({ accessToken, id });
-    dispatch({ type: "delete", payload: deletedVoter });
-  };
+  const { voters, dispatch } = useVoters();
 
   useEffect(() => {
     setNavState("Voters");
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      const voters = await getVoters({ accessToken });
-      dispatch({ type: "fetch", payload: voters });
-    })();
-  }, [accessToken, dispatch]);
+  const handleDeleteVoter = async (id) => {
+    await deleteVoter({ accessToken, id, dispatch });
+  };
 
   return (
     <>

@@ -5,33 +5,17 @@ import BallotIcon from "@mui/icons-material/Ballot";
 import Bar from "../../components/Bar/Bar";
 import Empty from "../../components/Empty/Empty";
 import ListItem from "../../components/ListItem/ListItem";
-import axios from "../../config/axios";
-import useAuth from "../../hooks/useAuth";
+
 import setNavState from "../../helpers/setNavState";
 
 import useElections from "../../hooks/useElections";
 
 const Elections = () => {
-  const { elections, dispatch } = useElections();
-  const { accessToken } = useAuth();
-
-  const getElections = async (accessToken) => {
-    const config = { headers: { authorization: `Bearer ${accessToken}` } };
-    try {
-      const { data } = await axios.get("election", config);
-      dispatch({ type: "fetch", payload: data });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { elections } = useElections();
 
   useEffect(() => {
     setNavState("Elections");
   }, []);
-
-  useEffect(() => {
-    getElections(accessToken);
-  }, [accessToken]);
 
   return (
     <>

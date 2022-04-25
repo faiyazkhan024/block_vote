@@ -1,30 +1,29 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import CandidateForm from "./CandidateForm";
 import FormContainer from "../../components/FormContainer/FormContainer";
-import axios from "../../config/axios";
 import useAuth from "../../hooks/useAuth";
+import useCandidates from "../../hooks/useCandidates";
+import { postCandidate } from "../../service";
+import CandidateForm from "./CandidateForm";
 
 const AddCandidate = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const { accessToken } = useAuth();
+  const { dispatch } = useCandidates();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const postCandidate = async (values, { resetForm }) => {
+  const handlePostCandidate = async (values, { resetForm }) => {
     setIsLoading(true);
-    const config = { headers: { authorization: `Bearer ${accessToken}` } };
-    try {
-      await axios.post("candidate", values, config);
-      setIsLoading(false);
-      resetForm();
-    } catch (error) {
-      setIsLoading(false);
-      console.error(error);
-    }
+    await postCandidate({ values, dispatch, accessToken });
+    setIsLoading(false);
+    resetForm();
+    if (!isLoading) navigate(-1);
   };
 
   return (
     <FormContainer title="Add Candidate">
-      <CandidateForm onSubmit={postCandidate} isLoading={isLoading} />
+      <CandidateForm onSubmit={handlePostCandidate} isLoading={isLoading} />
     </FormContainer>
   );
 };

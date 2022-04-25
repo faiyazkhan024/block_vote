@@ -1,29 +1,29 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import VoterForm from "./VoterForm";
 import FormContainer from "../../components/FormContainer/FormContainer";
-import axios from "../../config/axios";
 import useAuth from "../../hooks/useAuth";
+import { postVoter } from "../../service";
+import useVoters from "../../hooks/useVoters";
+import VoterForm from "./VoterForm";
 
 const AddVoter = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const { accessToken } = useAuth();
+  const { dispatch } = useVoters();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const postVoter = async (values, { resetForm }) => {
+  const handlePostVoter = async (values, { resetForm }) => {
     setIsLoading(true);
-    const config = { headers: { authorization: `Bearer ${accessToken}` } };
-    try {
-      await axios.post("voter", values, config);
-      setIsLoading(false);
-      resetForm();
-    } catch (error) {
-      setIsLoading(false);
-      console.error(error);
-    }
+    await postVoter({ values, dispatch, accessToken });
+    setIsLoading(false);
+    resetForm();
+    if (!isLoading) navigate(-1);
   };
+
   return (
     <FormContainer title="Add Voter">
-      <VoterForm onSubmit={postVoter} isLoading={isLoading} />
+      <VoterForm onSubmit={handlePostVoter} isLoading={isLoading} />
     </FormContainer>
   );
 };

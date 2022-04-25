@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "./components/Layout/Layout";
@@ -15,7 +16,27 @@ import AddVoter from "./pages/Voters/AddVoter";
 import AddCandidate from "./pages/Candidates/AddCandidate";
 import CreateElector from "./pages/Elections/CreateElection";
 
+import useAuth from "./hooks/useAuth";
+import useVoters from "./hooks/useVoters";
+import useCandidates from "./hooks/useCandidates";
+import useElections from "./hooks/useElections";
+import { getVoters, getCandidates, getElections } from "./service";
+
 const App = () => {
+  const { accessToken } = useAuth();
+  const { dispatch: votersDispatch } = useVoters();
+  const { dispatch: candidatesDispatch } = useCandidates();
+  const { dispatch: electionsDispatch } = useElections();
+
+  useEffect(() => {
+    (async () => {
+      await getCandidates({ dispatch: candidatesDispatch });
+      await getElections({ dispatch: electionsDispatch });
+      if (!accessToken) return;
+      await getVoters({ dispatch: votersDispatch, accessToken });
+    })();
+  }, [accessToken, votersDispatch, candidatesDispatch]);
+
   return (
     <Routes>
       <Route path="/">

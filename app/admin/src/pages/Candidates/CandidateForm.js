@@ -1,9 +1,8 @@
-import React from "react";
+import { Formik, Form, Field } from "formik";
 import { Grid, TextField, Button } from "@mui/material";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { Formik, Form, Field } from "formik";
 
 const CandidateForm = ({ onSubmit }) => {
   const initialValues = {
@@ -15,6 +14,7 @@ const CandidateForm = ({ onSubmit }) => {
     mobile: "",
     about: "",
   };
+
   return (
     <Formik
       initialValues={initialValues}

@@ -5,38 +5,22 @@ import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 import Bar from "../../components/Bar/Bar";
 import Empty from "../../components/Empty/Empty";
 import ListItem from "../../components/ListItem/ListItem";
-import axios from "../../config/axios";
+
 import useAuth from "../../hooks/useAuth";
 import setNavState from "../../helpers/setNavState";
-
 import useCandidates from "../../hooks/useCandidates";
+import { deleteCandidate } from "../../service";
 
 const Candidates = () => {
-  const { candidates, dispatch } = useCandidates();
   const { accessToken } = useAuth();
+  const { candidates, dispatch } = useCandidates();
 
-  const getCandidate = async () => {
-    try {
-      const { data } = await axios.get("candidate");
-      dispatch({ type: "fetch", payload: data });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const deleteCandidate = async (id) => {
-    const config = { headers: { authorization: `Bearer ${accessToken}` } };
-    try {
-      const deleteCandidate = await axios.delete(`candidate/${id}`, config);
-      dispatch({ type: "delete", payload: deleteCandidate });
-    } catch (error) {
-      console.error(error);
-    }
+  const handleDeleteCandidate = async (id) => {
+    await deleteCandidate({ id, dispatch, accessToken });
   };
 
   useEffect(() => {
     setNavState("Candidates");
-    getCandidate();
   }, []);
 
   return (
@@ -50,7 +34,7 @@ const Candidates = () => {
             <ListItem
               key={`${candidate._id}`}
               item={candidate}
-              onDelete={deleteCandidate}
+              onDelete={handleDeleteCandidate}
             />
           ))}
         </List>

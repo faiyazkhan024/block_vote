@@ -18,20 +18,13 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Formik, Form, Field } from "formik";
 
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
+import useVoters from "../../hooks/useVoters";
+import useCandidates from "../../hooks/useCandidates";
 
 const ElectionForm = ({ onSubmit }) => {
+  const { voters } = useVoters();
+  const { candidates } = useCandidates();
+
   const initialValues = {
     for: "",
     from: null,
@@ -40,6 +33,7 @@ const ElectionForm = ({ onSubmit }) => {
     candidates: [],
     about: "",
   };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -124,10 +118,14 @@ const ElectionForm = ({ onSubmit }) => {
                   },
                 }}
               >
-                {names.map((name) => (
-                  <MenuItem key={name} value={name}>
-                    <Checkbox checked={values.candidates.indexOf(name) > -1} />
-                    <ListItemText primary={name} />
+                {candidates.map((candidate) => (
+                  <MenuItem key={candidate._id} value={candidate._id}>
+                    <Checkbox
+                      checked={values.candidates.indexOf(candidate._id) > -1}
+                    />
+                    <ListItemText
+                      primary={`${candidate.firstName} ${candidate.middleName} ${candidate.lastName}`}
+                    />
                   </MenuItem>
                 ))}
               </Select>
@@ -161,10 +159,10 @@ const ElectionForm = ({ onSubmit }) => {
                   },
                 }}
               >
-                {names.map((name) => (
-                  <MenuItem key={name} value={name}>
-                    <Checkbox checked={values.candidates.indexOf(name) > -1} />
-                    <ListItemText primary={name} />
+                {voters.map((voter) => (
+                  <MenuItem key={voter._id} value={voter._id}>
+                    <Checkbox checked={values.voters.indexOf(voter._id) > -1} />
+                    <ListItemText primary={voter.username} />
                   </MenuItem>
                 ))}
               </Select>

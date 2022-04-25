@@ -34,6 +34,7 @@ const VoterContext = createContext([]);
 
 export const VoterContextProvider = ({ children }) => {
   const [voters, dispatch] = useReducer(voterReducer, []);
+
   return (
     <VoterContext.Provider value={{ voters, dispatch }}>
       {children}
