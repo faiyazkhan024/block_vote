@@ -18,10 +18,13 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Formik, Form, Field } from "formik";
 
+import useAuth from "../../hooks/useAuth";
 import useVoters from "../../hooks/useVoters";
 import useCandidates from "../../hooks/useCandidates";
+import { getVoter, getCandidate } from "../../service";
 
 const ElectionForm = ({ onSubmit }) => {
+  const { accessToken } = useAuth();
   const { voters } = useVoters();
   const { candidates } = useCandidates();
 
@@ -32,6 +35,14 @@ const ElectionForm = ({ onSubmit }) => {
     voters: [],
     candidates: [],
     about: "",
+  };
+
+  const getVoterUsername = (id) =>
+    voters.filter((voter) => voter._id === id)[0]?.username;
+
+  const getCandidateName = (id) => {
+    const candidate = candidates.filter((candidate) => candidate._id === id)[0];
+    return `${candidate.firstName} ${candidate.middleName} ${candidate.lastName}`;
   };
 
   return (
@@ -106,7 +117,7 @@ const ElectionForm = ({ onSubmit }) => {
                 renderValue={(selected) => (
                   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                     {selected.map((value) => (
-                      <Chip key={value} label={value} />
+                      <Chip key={value} label={getCandidateName(value)} />
                     ))}
                   </Box>
                 )}
@@ -147,7 +158,7 @@ const ElectionForm = ({ onSubmit }) => {
                 renderValue={(selected) => (
                   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                     {selected.map((value) => (
-                      <Chip key={value} label={value} />
+                      <Chip key={value} label={getVoterUsername(value)} />
                     ))}
                   </Box>
                 )}

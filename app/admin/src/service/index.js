@@ -1,6 +1,16 @@
 import axios from "../config/axios";
 
 // Voters Services
+export const getVoter = async ({ id, accessToken }) => {
+  const config = { headers: { authorization: `Bearer ${accessToken}` } };
+  try {
+    const { data: voter } = await axios.get(`voter/${id}`, config);
+    return voter;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const getVoters = async ({ dispatch, accessToken }) => {
   const config = { headers: { authorization: `Bearer ${accessToken}` } };
   try {
@@ -35,6 +45,15 @@ export const deleteVoter = async ({ id, dispatch, accessToken }) => {
 };
 
 // Candidates Services
+export const getCandidate = async ({ id }) => {
+  try {
+    const { data: candidate } = await axios.get(`candidate/${id}`);
+    return candidate;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const getCandidates = async ({ dispatch }) => {
   try {
     const { data: candidates } = await axios.get("candidate");
