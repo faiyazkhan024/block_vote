@@ -19,7 +19,7 @@ const getElection = asyncHandler(async (req, res, next) => {
   const electionId = req.params;
   if (!electionId) next(createError.BadRequest("Candidate ID is required."));
   try {
-    const election = await Election.find({ _id: electionId });
+    const election = await Election.findOne({ _id: electionId });
     if (!election.length)
       next(
         createError.BadRequest(`Election with id:${electionId} is not found`)
@@ -39,4 +39,17 @@ const getAllElection = asyncHandler(async (_, res, next) => {
   }
 });
 
-module.exports = { postElection, getElection, getAllElection };
+const deleteElection = asyncHandler(async (req, res, next) => {
+  const electionId = req.params.id;
+  if (!electionId) next(createError.BadRequest("Election ID is required."));
+  try {
+    const deletedElection = await Election.findOneAndDelete({
+      _id: electionId,
+    });
+    res.status(200).json(deletedElection);
+  } catch (error) {
+    next(error);
+  }
+});
+
+module.exports = { postElection, getElection, getAllElection, deleteElection };

@@ -19,7 +19,7 @@ const getCandidate = asyncHandler(async (req, res, next) => {
   const candidateId = req.params;
   if (!candidateId) next(createError.BadRequest("Candidate ID is required."));
   try {
-    const candidate = await Candidate.find({ _id: candidateId });
+    const candidate = await Candidate.findOne({ _id: candidateId });
     if (!candidate.length)
       next(
         createError.BadRequest(`Candidate with id:${candidateId} is not found`)
@@ -43,8 +43,10 @@ const deleteCandidate = asyncHandler(async (req, res, next) => {
   const candidateId = req.params.id;
   if (!candidateId) next(createError.BadRequest("Candidate ID is required."));
   try {
-    const candidate = await Candidate.findOneAndDelete({ _id: candidateId });
-    res.status(200).json(candidate);
+    const deletedCandidate = await Candidate.findOneAndDelete({
+      _id: candidateId,
+    });
+    res.status(200).json(deletedCandidate);
   } catch (error) {
     next(error);
   }

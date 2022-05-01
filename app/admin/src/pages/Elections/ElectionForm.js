@@ -27,8 +27,8 @@ const ElectionForm = ({ onSubmit }) => {
 
   const initialValues = {
     for: "",
-    from: null,
-    to: null,
+    start: null,
+    end: null,
     voters: [],
     candidates: [],
     about: "",
@@ -60,12 +60,12 @@ const ElectionForm = ({ onSubmit }) => {
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DatePicker
                 allowSameDateSelection
-                id="from"
-                name="from"
+                id="start"
+                name="start"
                 label="Start Date"
-                value={values.from}
+                value={values.start}
                 onChange={(value) => {
-                  setFieldValue("from", Date.parse(value));
+                  setFieldValue("start", Date.parse(value));
                 }}
                 renderInput={(params) => (
                   <TextField required fullWidth {...params} />
@@ -77,12 +77,12 @@ const ElectionForm = ({ onSubmit }) => {
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DatePicker
                 allowSameDateSelection
-                id="to"
-                name="to"
+                id="end"
+                name="end"
                 label="End Date"
-                value={values.to}
+                value={values.end}
                 onChange={(value) => {
-                  setFieldValue("to", Date.parse(value));
+                  setFieldValue("end", Date.parse(value));
                 }}
                 renderInput={(params) => (
                   <TextField required fullWidth {...params} />

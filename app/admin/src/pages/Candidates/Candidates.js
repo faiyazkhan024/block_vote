@@ -7,21 +7,21 @@ import Empty from "../../components/Empty/Empty";
 import ListItem from "../../components/ListItem/ListItem";
 
 import useAuth from "../../hooks/useAuth";
-import setNavState from "../../helpers/setNavState";
 import useCandidates from "../../hooks/useCandidates";
+import setNavState from "../../helpers/setNavState";
 import { deleteCandidate } from "../../service";
 
 const Candidates = () => {
   const { accessToken } = useAuth();
   const { candidates, dispatch } = useCandidates();
 
-  const handleDeleteCandidate = async (id) => {
-    await deleteCandidate({ id, dispatch, accessToken });
-  };
-
   useEffect(() => {
     setNavState("Candidates");
   }, []);
+
+  const handleDeleteCandidate = async (id) => {
+    await deleteCandidate({ id, dispatch, accessToken });
+  };
 
   return (
     <>

@@ -7,6 +7,7 @@ const electionModel = {
   end: Date,
   candidates: [],
   voters: [],
+  about: "",
 };
 
 const electionReducer = (elections = [electionModel], action) => {
