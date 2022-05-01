@@ -11,7 +11,7 @@ const AddCandidate = () => {
   const { accessToken } = useAuth();
   const { dispatch } = useCandidates();
   const navigate = useNavigate();
-  const [error, setError] = usState("");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePostCandidate = async (values, { resetForm }) => {
