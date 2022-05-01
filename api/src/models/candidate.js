@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema({
+const candidateSchema = mongoose.Schema({
   firstName: {
     type: String,
     trim: true,
@@ -25,16 +25,14 @@ const userSchema = mongoose.Schema({
   mobile: {
     type: String,
     trim: true,
-    unique: true,
     min: 10,
     max: 10,
   },
   email: {
     type: String,
     trim: true,
-    unique: true,
     max: 255,
   },
 });
 
-module.exports = mongoose.model("candidate", userSchema);
+module.exports = mongoose.model("candidate", candidateSchema);

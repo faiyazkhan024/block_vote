@@ -15,7 +15,7 @@ const AddCandidate = () => {
 
   const handlePostCandidate = async (values, { resetForm }) => {
     setIsLoading(true);
-    await postCandidate({ values, dispatch, accessToken });
+    await postCandidate({ values, dispatch, accessToken, setIsLoading });
     setIsLoading(false);
     resetForm();
     if (!isLoading) navigate(-1);

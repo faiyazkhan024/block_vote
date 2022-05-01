@@ -28,7 +28,7 @@ const postVoter = asyncHandler(async (req, res, next) => {
     await mail({ email, username, password });
     res.status(201).json(createdVoter);
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     next(error);
   }
 });

@@ -25,7 +25,6 @@ const CandidateForm = ({ onSubmit }) => {
         <Grid container spacing={3} component={Form}>
           <Grid item xs={12} sm={6}>
             <Field
-              required
               id="firstName"
               name="firstName"
               label="First name"
@@ -39,7 +38,6 @@ const CandidateForm = ({ onSubmit }) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Field
-              required
               id="middleName"
               name="middleName"
               label="Middle name"
@@ -53,7 +51,6 @@ const CandidateForm = ({ onSubmit }) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Field
-              required
               id="lastName"
               name="lastName"
               label="Last name"
@@ -83,7 +80,6 @@ const CandidateForm = ({ onSubmit }) => {
           </Grid>
           <Grid item xs={12}>
             <Field
-              required
               id="email"
               name="email"
               label="Email"

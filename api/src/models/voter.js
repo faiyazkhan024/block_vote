@@ -40,14 +40,12 @@ const voterSchema = mongoose.Schema({
   mobile: {
     type: String,
     trim: true,
-    unique: true,
     min: 10,
     max: 10,
   },
   email: {
     type: String,
     trim: true,
-    unique: true,
     required: true,
     max: 255,
   },

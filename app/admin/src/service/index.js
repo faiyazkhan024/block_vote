@@ -40,13 +40,19 @@ export const getVoters = async ({ dispatch, accessToken }) => {
   }
 };
 
-export const postVoter = async ({ values, dispatch, accessToken }) => {
+export const postVoter = async ({
+  values,
+  dispatch,
+  accessToken,
+  setIsLoading,
+}) => {
   const config = { headers: { authorization: `Bearer ${accessToken}` } };
   try {
     const { data: newVoter } = await axios.post("voter", values, config);
     dispatch({ type: "create", payload: newVoter });
     return newVoter;
   } catch (error) {
+    setIsLoading(false);
     throw new Error(error);
   }
 };
@@ -82,7 +88,12 @@ export const getCandidates = async ({ dispatch }) => {
   }
 };
 
-export const postCandidate = async ({ values, dispatch, accessToken }) => {
+export const postCandidate = async ({
+  values,
+  dispatch,
+  accessToken,
+  setIsLoading,
+}) => {
   const config = { headers: { authorization: `Bearer ${accessToken}` } };
   try {
     const { data: newCandidate } = await axios.post(
@@ -93,6 +104,7 @@ export const postCandidate = async ({ values, dispatch, accessToken }) => {
     dispatch({ type: "create", payload: newCandidate });
     return newCandidate;
   } catch (error) {
+    setIsLoading(false);
     throw new Error(error);
   }
 };

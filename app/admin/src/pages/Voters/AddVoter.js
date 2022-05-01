@@ -15,7 +15,7 @@ const AddVoter = () => {
 
   const handlePostVoter = async (values, { resetForm }) => {
     setIsLoading(true);
-    await postVoter({ values, dispatch, accessToken });
+    await postVoter({ values, dispatch, accessToken, setIsLoading });
     setIsLoading(false);
     resetForm();
     if (!isLoading) navigate(-1);

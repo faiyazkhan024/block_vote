@@ -6,6 +6,7 @@ import RequireAuth from "./components/RequireAuth/RequireAuth";
 
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
+import Election from "./pages/Election/Election";
 import NotFound from "./pages/NotFound/NotFound";
 
 import useElections from "./hooks/useElections";
@@ -25,6 +26,7 @@ const App = () => {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/election/:electionId" element={<Election />} />
         <Route element={<RequireAuth />}></Route>
         <Route path="*" element={<NotFound />} />
       </Route>

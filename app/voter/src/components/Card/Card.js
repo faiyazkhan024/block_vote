@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Grid,
   Card as MuiCard,
@@ -13,8 +14,17 @@ import {
 import vote from "../../assets/vote.jpg";
 
 const Card = ({ item }) => {
+  const navigate = useNavigate();
+
   return (
-    <Grid item xs={12} sm={3}>
+    <Grid
+      item
+      xs={12}
+      sm={3}
+      onClick={() => {
+        navigate(`election/${item._id}`);
+      }}
+    >
       <MuiCard sx={{ maxWidth: 345 }}>
         <CardActionArea>
           <CardMedia component="img" height="140" image={vote} alt="Vote" />
@@ -28,7 +38,12 @@ const Card = ({ item }) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
+          <Button
+            to={`election/${item._id}`}
+            size="small"
+            color="primary"
+            component={Link}
+          >
             View More
           </Button>
         </CardActions>
