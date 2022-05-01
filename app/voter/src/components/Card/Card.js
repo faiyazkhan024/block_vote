@@ -17,15 +17,13 @@ const Card = ({ item }) => {
   const navigate = useNavigate();
 
   return (
-    <Grid
-      item
-      xs={12}
-      sm={3}
-      onClick={() => {
-        navigate(`election/${item._id}`);
-      }}
-    >
-      <MuiCard sx={{ maxWidth: 345 }}>
+    <Grid item xs={12} sm={3}>
+      <MuiCard
+        sx={{ maxWidth: 345 }}
+        onClick={() => {
+          navigate(`election/${item._id}`);
+        }}
+      >
         <CardActionArea>
           <CardMedia component="img" height="140" image={vote} alt="Vote" />
           <CardContent>
