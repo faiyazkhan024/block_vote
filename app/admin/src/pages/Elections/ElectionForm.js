@@ -21,10 +21,8 @@ import { Formik, Form, Field } from "formik";
 import useAuth from "../../hooks/useAuth";
 import useVoters from "../../hooks/useVoters";
 import useCandidates from "../../hooks/useCandidates";
-import { getVoter, getCandidate } from "../../service";
 
 const ElectionForm = ({ onSubmit }) => {
-  const { accessToken } = useAuth();
   const { voters } = useVoters();
   const { candidates } = useCandidates();
 
