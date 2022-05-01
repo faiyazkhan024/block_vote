@@ -31,7 +31,10 @@ const ListItem = ({ item, onDelete, icon }) => {
             <Avatar>{icon}</Avatar>
           </ListItemAvatar>
           {item?.for ? (
-            <ListItemText primary={item.for} secondary={item.about} />
+            <ListItemText
+              primary={item.for}
+              secondary={`${item.about.substring(0, 100)}...`}
+            />
           ) : (
             <ListItemText
               primary={`${item.firstName} ${item.middleName} ${item.lastName}`}
