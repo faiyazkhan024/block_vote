@@ -21,7 +21,11 @@ const Voters = () => {
   }, []);
 
   const handleDeleteVoter = async (id) => {
-    await deleteVoter({ accessToken, id, dispatch });
+    try {
+      await deleteVoter({ accessToken, id, dispatch });
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   return (

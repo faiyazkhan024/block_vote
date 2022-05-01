@@ -21,7 +21,11 @@ const Candidates = () => {
   }, []);
 
   const handleDeleteCandidate = async (id) => {
-    await deleteCandidate({ id, dispatch, accessToken });
+    try {
+      await deleteCandidate({ id, dispatch, accessToken });
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   return (

@@ -22,7 +22,13 @@ const LoginForm = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await login({ username, password, setAuth, setError });
+    if (!username && !password) return setError("Invalid Username/Password");
+    try {
+      await login({ username, password, setAuth, setError });
+    } catch (error) {
+      setError(error.message);
+      throw new Error(error);
+    }
   };
 
   return (

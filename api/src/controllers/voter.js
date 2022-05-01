@@ -12,6 +12,7 @@ const getVoter = asyncHandler(async (_, res, next) => {
     const allVoter = await Voter.find({});
     res.status(200).json(allVoter);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });
@@ -28,7 +29,7 @@ const postVoter = asyncHandler(async (req, res, next) => {
     await mail({ email, username, password });
     res.status(201).json(createdVoter);
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
     next(error);
   }
 });
@@ -40,6 +41,7 @@ const deleteVoter = asyncHandler(async (req, res, next) => {
     const voter = await Voter.findOneAndDelete({ _id: voterId });
     res.status(200).json(voter);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });
@@ -53,6 +55,7 @@ const getVoterById = asyncHandler(async (req, res, next) => {
       next(createError.BadRequest(`Voter with id:${voterId} is not found`));
     res.status(200).json(voter);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });
@@ -77,6 +80,7 @@ const postVote = asyncHandler(async (req, res, next) => {
     });
     res.status(201).json({ voterId, message: "Voted" });
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });

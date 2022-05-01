@@ -8,18 +8,18 @@ import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Voters from "./pages/Voters/Voters";
+import Setting from "./pages/Setting/Setting";
+import AddVoter from "./pages/Voters/AddVoter";
 import NotFound from "./pages/NotFound/NotFound";
 import Elections from "./pages/Elections/Elections";
 import Candidates from "./pages/Candidates/Candidates";
-import Setting from "./pages/Setting/Setting";
-import AddVoter from "./pages/Voters/AddVoter";
 import AddCandidate from "./pages/Candidates/AddCandidate";
 import CreateElector from "./pages/Elections/CreateElection";
 
 import useAuth from "./hooks/useAuth";
 import useVoters from "./hooks/useVoters";
-import useCandidates from "./hooks/useCandidates";
 import useElections from "./hooks/useElections";
+import useCandidates from "./hooks/useCandidates";
 import { getVoters, getCandidates, getElections } from "./service";
 
 const App = () => {
@@ -30,10 +30,14 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      await getCandidates({ dispatch: candidatesDispatch });
-      await getElections({ dispatch: electionsDispatch });
-      if (!accessToken) return;
-      await getVoters({ dispatch: votersDispatch, accessToken });
+      try {
+        await getCandidates({ dispatch: candidatesDispatch });
+        await getElections({ dispatch: electionsDispatch });
+        if (!accessToken) return;
+        await getVoters({ dispatch: votersDispatch, accessToken });
+      } catch (error) {
+        throw new Error(error);
+      }
     })();
   }, [accessToken, votersDispatch, candidatesDispatch, electionsDispatch]);
 

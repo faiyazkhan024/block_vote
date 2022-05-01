@@ -11,18 +11,26 @@ const AddCandidate = () => {
   const { accessToken } = useAuth();
   const { dispatch } = useCandidates();
   const navigate = useNavigate();
+  const [error, setError] = usState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePostCandidate = async (values, { resetForm }) => {
     setIsLoading(true);
-    await postCandidate({ values, dispatch, accessToken, setIsLoading });
-    setIsLoading(false);
-    resetForm();
-    if (!isLoading) navigate(-1);
+    try {
+      await postCandidate({ values, dispatch, accessToken });
+      setIsLoading(false);
+      resetForm();
+      if (!isLoading) navigate(-1);
+    } catch (error) {
+      setError(error.message);
+      setIsLoading(false);
+      throw new Error(error);
+    }
   };
 
   return (
     <FormContainer title="Add Candidate">
+      {error && <div>{error}</div>}
       <CandidateForm onSubmit={handlePostCandidate} isLoading={isLoading} />
     </FormContainer>
   );

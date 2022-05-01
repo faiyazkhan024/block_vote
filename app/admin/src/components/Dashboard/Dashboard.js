@@ -51,6 +51,7 @@ const Drawer = styled(MuiDrawer, {
     whiteSpace: "nowrap",
     width: drawerWidth,
     [theme.breakpoints.down("sm")]: {
+      overflowX: "hidden",
       width: "100vw",
     },
     transition: theme.transitions.create("width", {

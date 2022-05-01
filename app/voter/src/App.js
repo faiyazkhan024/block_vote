@@ -17,7 +17,11 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      await getElections({ dispatch: electionsDispatch });
+      try {
+        await getElections({ dispatch: electionsDispatch });
+      } catch (error) {
+        throw new Error(error);
+      }
     })();
   }, [electionsDispatch]);
 

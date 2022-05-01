@@ -14,6 +14,7 @@ const authenticate = (authType) =>
       req.user = { username, type };
       next();
     } catch (error) {
+      console.error(error);
       next(error);
     }
   });

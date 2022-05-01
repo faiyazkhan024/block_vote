@@ -9,6 +9,7 @@ const getCandidate = asyncHandler(async (_, res, next) => {
     const allCandidate = await Candidate.find({});
     res.status(200).json(allCandidate);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });
@@ -21,6 +22,7 @@ const postCandidate = asyncHandler(async (req, res, next) => {
     const createdCandidate = await newCandidate.save();
     res.status(201).json(createdCandidate);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });
@@ -34,6 +36,7 @@ const deleteCandidate = asyncHandler(async (req, res, next) => {
     });
     res.status(200).json(deletedCandidate);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });
@@ -49,6 +52,7 @@ const getCandidateById = asyncHandler(async (req, res, next) => {
       );
     res.status(200).json(candidate);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });

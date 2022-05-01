@@ -9,6 +9,7 @@ const getElection = asyncHandler(async (_, res, next) => {
     const allElection = await Election.find({});
     res.status(200).json(allElection);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });
@@ -27,6 +28,7 @@ const postElection = asyncHandler(async (req, res, next) => {
     await ballot.save();
     res.status(201).json(createdElection);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });
@@ -41,6 +43,7 @@ const deleteElection = asyncHandler(async (req, res, next) => {
     await Ballot.findOneAndDelete({ electionId: electionId });
     res.status(200).json(deletedElection);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });
@@ -56,6 +59,7 @@ const getElectionById = asyncHandler(async (req, res, next) => {
       );
     res.status(200).json(election);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });

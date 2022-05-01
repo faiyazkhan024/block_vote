@@ -22,7 +22,13 @@ const LoginForm = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await login({ username, password, setAuth, setError });
+    if (!username && !password) setError("Username/Password is required");
+    try {
+      await login({ username, password, setAuth });
+    } catch (error) {
+      setError(error.message);
+      throw new Error(error);
+    }
   };
 
   return (

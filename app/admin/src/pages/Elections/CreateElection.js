@@ -11,18 +11,25 @@ const CreateElection = () => {
   const { accessToken } = useAuth();
   const { dispatch } = useElections();
   const navigate = useNavigate();
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePostElection = async (values, { resetForm }) => {
     setIsLoading(true);
-    await postElection({ values, dispatch, accessToken });
-    setIsLoading(false);
-    resetForm();
-    if (!isLoading) navigate(-1);
+    try {
+      await postElection({ values, dispatch, accessToken });
+      setIsLoading(false);
+      resetForm();
+      if (!isLoading) navigate(-1);
+    } catch (error) {
+      setError(error.message);
+      throw new Error(error);
+    }
   };
 
   return (
     <FormContainer title="Create Election">
+      {error && <div>{error}</div>}
       <ElectionForm onSubmit={handlePostElection} />
     </FormContainer>
   );

@@ -4,10 +4,11 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import "moment/locale/en-in";
 
-import App from "./App";
 import { VoterContextProvider } from "./context/voters";
-import { CandidateContextProvider } from "./context/candidates";
 import { ElectionContextProvider } from "./context/elections";
+import { CandidateContextProvider } from "./context/candidates";
+
+import App from "./App";
 
 import theme from "./theme";
 import "./index.css";

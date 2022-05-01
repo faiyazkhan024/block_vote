@@ -10,6 +10,7 @@ const loginUser = asyncHandler(async (req, res, next) => {
     const result = await login(loginCredential, type);
     res.status(200).json(result);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });
@@ -24,6 +25,7 @@ const getToken = asyncHandler(async (req, res, next) => {
     const result = await token(refreshToken, type);
     res.status(201).json(result);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 });

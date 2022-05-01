@@ -20,7 +20,11 @@ const Elections = () => {
   }, []);
 
   const handleDeleteElection = async (id) => {
-    await deleteElection({ id, dispatch, accessToken });
+    try {
+      await deleteElection({ id, dispatch, accessToken });
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   return (
