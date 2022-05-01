@@ -56,7 +56,9 @@ const App = () => {
             <Route path="setting" element={<Setting />} />
           </Route>
         </Route>
-        <Route path="*" element={<NotFound />} />
+        <Route element={<Layout />}>
+          <Route path="*" element={<NotFound />} />
+        </Route>
       </Route>
     </Routes>
   );

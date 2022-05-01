@@ -1,8 +1,11 @@
 import { Outlet, Link as RouterLink } from "react-router-dom";
-
 import { Typography, AppBar, Box, Link, Toolbar, Button } from "@mui/material";
 
+import useAuth from "../../hooks/useAuth";
+
 const Layout = () => {
+  const { accessToken } = useAuth();
+
   return (
     <>
       <AppBar position="static">
@@ -11,9 +14,11 @@ const Layout = () => {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Block Vote Dashboard
           </Typography>
-          <Button to="/login" color="inherit" component={RouterLink}>
-            Login
-          </Button>
+          {accessToken && (
+            <Button to="/login" color="inherit" component={RouterLink}>
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
 
