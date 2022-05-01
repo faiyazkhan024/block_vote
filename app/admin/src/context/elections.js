@@ -13,7 +13,7 @@ const electionModel = {
 const electionReducer = (elections = [electionModel], action) => {
   switch (action.type) {
     case "fetch":
-      return [...elections, ...action.payload];
+      return [...action.payload];
     case "create":
       return [...elections, action.payload];
     case "update":

@@ -11,9 +11,8 @@ import {
 } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const ListItem = ({ item, onDelete }) => {
+const ListItem = ({ item, onDelete, icon }) => {
   return (
     <Box sx={{ mb: 2 }}>
       <Paper elevation={0} sx={{ px: 3 }}>
@@ -29,14 +28,16 @@ const ListItem = ({ item, onDelete }) => {
           }
         >
           <ListItemAvatar>
-            <Avatar>
-              <AccountCircleIcon />
-            </Avatar>
+            <Avatar>{icon}</Avatar>
           </ListItemAvatar>
-          <ListItemText
-            primary={`${item.firstName} ${item.middleName} ${item.lastName}`}
-            secondary={item.email}
-          />
+          {item?.for ? (
+            <ListItemText primary={item.for} secondary={item.about} />
+          ) : (
+            <ListItemText
+              primary={`${item.firstName} ${item.middleName} ${item.lastName}`}
+              secondary={item.email}
+            />
+          )}
         </MuiListItem>
       </Paper>
     </Box>

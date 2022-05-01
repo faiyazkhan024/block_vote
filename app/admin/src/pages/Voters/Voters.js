@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { List } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PeopleIcon from "@mui/icons-material/People";
 
 import Bar from "../../components/Bar/Bar";
@@ -34,6 +35,7 @@ const Voters = () => {
             <ListItem
               key={`${voter._id}`}
               item={voter}
+              icon={<AccountCircleIcon />}
               onDelete={handleDeleteVoter}
             />
           ))}

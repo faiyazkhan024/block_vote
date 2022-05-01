@@ -38,6 +38,7 @@ const deleteElection = asyncHandler(async (req, res, next) => {
     const deletedElection = await Election.findOneAndDelete({
       _id: electionId,
     });
+    await Ballot.findOneAndDelete({ electionId: electionId });
     res.status(200).json(deletedElection);
   } catch (error) {
     next(error);

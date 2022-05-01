@@ -34,6 +34,7 @@ const Elections = () => {
             <ListItem
               key={`${election._id}`}
               item={election}
+              icon={<BallotIcon />}
               onDelete={handleDeleteElection}
             />
           ))}
