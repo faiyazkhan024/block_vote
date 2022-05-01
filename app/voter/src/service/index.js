@@ -4,7 +4,7 @@ import axios from "../config/axios";
 export const login = async ({ username, password, setAuth, setError }) => {
   if (!username && !password) return setError("Invalid Username/Password");
   try {
-    const { data: auth } = await axios.post("auth/login/admin", {
+    const { data: auth } = await axios.post("auth/login/voter", {
       username,
       password,
     });
@@ -13,12 +13,12 @@ export const login = async ({ username, password, setAuth, setError }) => {
       refreshToken: auth.refreshToken,
     });
   } catch (error) {
-    setError("Invalid username or password");
+    setError("Invalid Username/Password");
     throw new Error(error);
   }
 };
 
-//Voters Services
+// Voters Services
 export const getVoter = async ({ id, accessToken }) => {
   const config = { headers: { authorization: `Bearer ${accessToken}` } };
   try {
@@ -62,7 +62,7 @@ export const deleteVoter = async ({ id, dispatch, accessToken }) => {
   }
 };
 
-//Candidates Services
+// Candidates Services
 export const getCandidate = async ({ id }) => {
   try {
     const { data: candidate } = await axios.get(`candidate/${id}`);
@@ -111,7 +111,7 @@ export const deleteCandidate = async ({ id, dispatch, accessToken }) => {
   }
 };
 
-//Elections Services
+// Elections Services
 export const getElections = async ({ dispatch }) => {
   try {
     const { data: elections } = await axios.get("election");
