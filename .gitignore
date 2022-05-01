@@ -41,3 +41,7 @@ external-chaincode/
 # Eclipse
 .classpath
 .settings
+
+# Lock files
+yarn.lock
+package-lock.json
