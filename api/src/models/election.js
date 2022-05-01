@@ -13,16 +13,9 @@ const electionSchema = mongoose.Schema({
     type: Date,
     require: true,
   },
-  status: {
-    type: String,
-    require: true,
-  },
   candidates: [{ type: mongoose.Schema.Types.ObjectId, ref: "candidate" }],
   voters: [{ type: mongoose.Schema.Types.ObjectId, ref: "voter" }],
-  about: {
-    type: String,
-    require: true,
-  },
+  about: String,
 });
 
 module.exports = mongoose.model("election", electionSchema);

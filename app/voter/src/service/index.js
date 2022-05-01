@@ -1,11 +1,12 @@
 import axios from "../config/axios";
 
 //Auth Services
-export const login = async ({ username, password, setAuth }) => {
+export const login = async ({ username, password, setAuth, setVoter }) => {
   const { data: auth } = await axios.post("auth/login/voter", {
     username,
     password,
   });
+  setVoter({ ...auth.user });
   setAuth({
     accessToken: auth.accessToken,
     refreshToken: auth.refreshToken,
@@ -40,10 +41,35 @@ export const deleteVoter = async ({ id, dispatch, accessToken }) => {
   return deletedVoter;
 };
 
+export const postVote = async ({
+  voterId,
+  candidateId,
+  electionId,
+  accessToken,
+}) => {
+  const config = { headers: { authorization: `Bearer ${accessToken}` } };
+  const { data } = await axios.post(
+    "voter/vote",
+    {
+      voterId,
+      candidateId,
+      electionId,
+    },
+    config
+  );
+  return data;
+};
+
 //Candidates Services
-export const getCandidateById = async ({ id }) => {
+export const getCandidateById = async (id) => {
   const { data: candidate } = await axios.get(`candidate/${id}`);
   return candidate;
+};
+
+export const getCandidatesByIds = async (ids) => {
+  if (!ids) return;
+  const candidates = await Promise.all(ids.map(getCandidateById));
+  return candidates;
 };
 
 export const getCandidates = async ({ dispatch }) => {

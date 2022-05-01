@@ -4,6 +4,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 
 import useLocal from "../../hooks/useLocal";
 import setAuthState from "../../helpers/setAuthState";
+import setVoterState from "../../helpers/setVoterState";
 import { login } from "../../service";
 
 const LoginForm = () => {
@@ -11,20 +12,22 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [auth, setAuth] = useLocal("auth", {});
+  const [voter, setVoter] = useLocal("voter", {});
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     setAuthState(auth);
+    setVoterState(voter);
     if (Object.keys(auth).length !== 0) navigate(from, { replace: true });
-  }, [auth, navigate, from]);
+  }, [auth, voter, navigate, from]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!username && !password) setError("Username/Password is required");
     try {
-      await login({ username, password, setAuth });
+      await login({ username, password, setAuth, setVoter });
     } catch (error) {
       setError(error.message);
       throw new Error(error);

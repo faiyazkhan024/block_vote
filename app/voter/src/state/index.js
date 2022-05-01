@@ -8,3 +8,14 @@ export const authState = proxy({
 export const navState = proxy({
   location: "",
 });
+
+export const voterState = proxy({
+  _id: "",
+  username: "",
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  dateOfBirth: null,
+  mobile: "",
+  email: "",
+});
