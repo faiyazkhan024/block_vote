@@ -9,11 +9,21 @@ import Login from "./pages/Login/Login";
 import Election from "./pages/Election/Election";
 import NotFound from "./pages/NotFound/NotFound";
 
+import useLocal from "./hooks/useLocal";
 import useElections from "./hooks/useElections";
+import setAuthState from "./helpers/setAuthState";
+import setVoterState from "./helpers/setVoterState";
 import { getElections } from "./service";
 
 const App = () => {
+  const [auth] = useLocal("auth", {});
+  const [voter] = useLocal("voter", {});
   const { dispatch: electionsDispatch } = useElections();
+
+  useEffect(() => {
+    setAuthState(auth);
+    setVoterState(voter);
+  });
 
   useEffect(() => {
     (async () => {

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Container } from "@mui/material";
 
 import Empty from "../../components/Empty/Empty";
 import Card from "../../components/Card/Card";
@@ -17,11 +17,13 @@ const Home = () => {
   return elections.lenth ? (
     <Empty comment="No election found" />
   ) : (
-    <Grid container spacing={3} sx={{ m: 4 }}>
-      {elections.map((election) => (
-        <Card key={election._id} item={election}></Card>
-      ))}
-    </Grid>
+    <Container maxWidth="xl" sx={{ mt: 10 }}>
+      <Grid container spacing={3}>
+        {elections.map((election) => (
+          <Card key={election._id} item={election}></Card>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 

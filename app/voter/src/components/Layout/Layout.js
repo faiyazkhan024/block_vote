@@ -20,7 +20,15 @@ const Layout = () => {
               Login
             </Button>
           ) : (
-            <Button to="/" color="inherit" component={RouterLink}>
+            <Button
+              to="/"
+              color="inherit"
+              component={RouterLink}
+              onClick={() => {
+                localStorage.removeItem("auth");
+                localStorage.removeItem("voter");
+              }}
+            >
               Logout
             </Button>
           )}
@@ -35,7 +43,7 @@ const Layout = () => {
         variant="body2"
         color="text.secondary"
         align="center"
-        sx={{ pt: 4 }}
+        sx={{ pt: 4, pb: 4 }}
       >
         {"Copyright © "}
         <Link to="/" color="inherit" component={RouterLink}>

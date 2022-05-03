@@ -8,7 +8,7 @@ import useElections from "../../hooks/useElections";
 import useVoter from "../../hooks/useVoter";
 import { postVote, getCandidatesByIds } from "../../service";
 
-const Election = ({ location }) => {
+const Election = () => {
   const { accessToken } = useAuth();
   const { _id: voterId } = useVoter();
   const { elections } = useElections();

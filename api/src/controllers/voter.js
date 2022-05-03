@@ -64,7 +64,7 @@ const postVote = asyncHandler(async (req, res, next) => {
   const { electionId, candidateId, voterId } = req.body;
   try {
     const election = await Election.findById(electionId);
-    if (new Date(election.end).getTime() === new Date.getTime())
+    if (new Date(election.end).getTime() === new Date().getTime())
       next(createError.BadRequest("Election have expired"));
 
     const ballot = await Ballot.findOne({ election: electionId });
@@ -74,8 +74,9 @@ const postVote = asyncHandler(async (req, res, next) => {
           `Voter with id:${voterId} is not allowed to vote or has already voted.`
         )
       );
-    await ballot.update({
+    await Ballot.findByIdAndUpdate({
       ...ballot,
+      voters: [...ballot.voters.filter((voter) => voter !== voterId)],
       votes: [...ballot.votes, candidateId],
     });
     res.status(201).json({ voterId, message: "Voted" });

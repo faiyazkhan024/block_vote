@@ -23,7 +23,6 @@ const postElection = asyncHandler(async (req, res, next) => {
     const ballot = await Ballot({
       election: createdElection._id,
       voters: createdElection.voters,
-      votes: [],
     });
     await ballot.save();
     res.status(201).json(createdElection);
