@@ -2,6 +2,8 @@ import { Outlet, Link as RouterLink } from "react-router-dom";
 import { Typography, AppBar, Box, Link, Toolbar, Button } from "@mui/material";
 
 import useAuth from "../../hooks/useAuth";
+import setAuthState from "../../helpers/setAuthState";
+import setVoterState from "../../helpers/setVoterState";
 
 const Layout = () => {
   const { accessToken } = useAuth();
@@ -25,6 +27,8 @@ const Layout = () => {
               color="inherit"
               component={RouterLink}
               onClick={() => {
+                setAuthState({});
+                setVoterState({});
                 localStorage.removeItem("auth");
                 localStorage.removeItem("voter");
               }}

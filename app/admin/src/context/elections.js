@@ -18,11 +18,13 @@ const electionReducer = (elections = [electionModel], action) => {
       return [...elections, action.payload];
     case "update":
       return [
-        ...elections.filter((voter) => voter.id !== action.payload.id),
+        ...elections.filter((election) => election._id !== action.payload._id),
         action.payload,
       ];
     case "delete":
-      return elections.filter((item) => item.id !== action.payload.id);
+      return [
+        ...elections.filter((election) => election._id !== action.payload._id),
+      ];
     default:
       throw new Error("Unknown action type");
   }

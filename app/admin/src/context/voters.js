@@ -20,11 +20,11 @@ const voterReducer = (voters = [voterModel], action) => {
       return [...voters, action.payload];
     case "update":
       return [
-        ...voters.filter((voter) => voter.id !== action.payload.id),
+        ...voters.filter((voter) => voter._id !== action.payload._id),
         action.payload,
       ];
     case "delete":
-      return voters.filter((item) => item.id !== action.payload.id);
+      return [...voters.filter((voter) => voter._id !== action.payload._id)];
     default:
       throw new Error("unknown action type");
   }
